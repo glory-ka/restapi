@@ -9,6 +9,6 @@ const surveyFormat = new Schema ({
     date_open: {type: Date, require: true},
     date_close: {type: Date, require: true},
     status: {type: Boolean, require: true},
-    question: {type: Object, require: true}
+    question: {type: Map, of: String, require: true}
 });
 
