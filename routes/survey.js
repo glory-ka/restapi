@@ -8,20 +8,20 @@ const { changeQuestionStatus, changeSurveyQuestion } = require('../controllers/u
 
 
 /** GET ROUTER */
-router.get('orangutan/survey/:userID/published', listPublishedSurvey);
-router.get('orangutan/survey/published', listAllOpenSurvey)
-router.get('orangutan/survey/:name/detail', surveyDetail);
-router.get('oranguton/survey/:name/count', surveyResponseCount)
+router.get('/:userID/published', listPublishedSurvey);
+router.get('/published', listAllOpenSurvey)
+router.get('/:name/detail', surveyDetail);
+router.get('/:name/count', surveyResponseCount)
 
 
 /** POST ROUTER */
-router.post('orangutan/survey/:name/:userID/response', respondToSurvey);
-router.post('orangutan/survey/:name/:userID/otherResponse', otherResponse);
+router.post('/:name/:userID/response', respondToSurvey);
+router.post('/:name/:userID/otherResponse', otherResponse);
 
 
 /** PUT ROUTER */
-router.put('orangutan/survey/:name/:userID/delete', deleteUserResponse);
-router.put('orangutan/survey/:name/:userID/deleteSurvey', deleteSurvey);
+router.put('/:name/:userID/delete', deleteUserResponse);
+router.put('/:name/:userID/deleteSurvey', deleteSurvey);
 
 
 
