@@ -25,11 +25,4 @@ router.put('/:name/:userID/deleteSurvey', deleteSurvey);
 
 
 
-
-
-
-
-
-
-
-
+export router;
