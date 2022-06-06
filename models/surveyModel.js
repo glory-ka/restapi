@@ -1,4 +1,14 @@
 const mangoose = require('mongoose');
 
-const schema = mangoose.Schema;
+const Schema = mangoose.Schema;
+
+
+const surveyFormat = new Schema ({
+    surveyName: {type: String, required: true},
+    ownerName: {type: String, required: true},
+    date_open: {type: Date, require: true},
+    date_close: {type: Date, require: true},
+    status: {type: Boolean, require: true},
+    question: {type: Object, require: true}
+});
 
