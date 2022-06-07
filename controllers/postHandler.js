@@ -32,7 +32,28 @@ const respondToSurvey = ( req, res, next ) => {
 
 
 const otherResponse = ( req, res, next ) => {
-    
+
+    const validateUser = await UserInfo.find( { userUUID: req.userID } )
+        .exec();
+    const validateSurvey = await Survey.find( { surveyName: req.name } )
+        .exec();
+
+    if ( validateUser == null || validateSurvey == null ) ;
+
+    if ( validateSurvey.isAnswerExist( req.body.reponse ) )
+        req.send( JSON.stringify( { Error: "Incorrect Alernative response format" } ) );
+
+    const response = new Response( {
+        user: validateUser,
+        response: req.body.response,
+        survey: validateSurvey
+    } );
+
+    response.save( function( error ){
+        if (error) return next( error );
+
+        res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
+    } );
 };
 
 export {
