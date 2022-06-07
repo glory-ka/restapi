@@ -7,16 +7,22 @@ const UserInfo = require( '../models/userIdModel' );
 const deleteUserResponse = ( req, res, next ) => {
 
     const validateUser = await UserInfo.find( { userUUID: req.ownerID } )
-                                    .exec();
+        .exec();
 
-    if ( validateUser == null )
-        req.send( JSON.stringify( { Error: "Incorrect user id" } ) );
+    if ( validateUser == null ){
+        const err = new Error( 'Incorrect user id' );
+        err.status = 404;
+        return next( err );
+    }
 
     const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
                                     .populate( 'ownerInfo' )
                                     .exec();
-    if ( validateSurvey == null )
-        req.send( JSON.stringify( { Error: "Incorrect survey name" } ) );
+    if ( validateSurvey == null ){
+        const err = new Error( 'Incorrect survey name' );
+        err.status = 404;
+        return next( err );
+    }
 
 
     const response = await Response.find( { survey: validateSurvey } )
