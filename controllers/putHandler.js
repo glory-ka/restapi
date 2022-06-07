@@ -15,9 +15,15 @@ const deleteUserResponse = ( req, res, next ) => {
     if ( validateUser == null || validateSurvey == null )
         req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
 
-if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
-req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
-};
+    const response = await Response.find( { survey: validateSurvey } )
+                                .populate( '' )
+                                .exec(
+                                    function(){
+                                        
+                        } );
+    if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
+    req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
+    };
 
 const deleteSurvey = ( req, res, next ) => {
     console.log("Not yet implemented");
