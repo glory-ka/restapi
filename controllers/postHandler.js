@@ -11,10 +11,9 @@ const respondToSurvey = ( req, res, next ) => {
     const validateSurvey = await Survey.find( { surveyName: req.name } )
                                 .exec();
 
-    if ( validateUser == null || validateSurvey == null )
-        return;
+    if ( validateUser == null || validateSurvey == null ) return;
 
-    if req.body.answer in validateSurvey.question;
+    if (req.body.answer in validateSurvey.question) return;
 
     const response = new Response( {
         user: validateUser,
