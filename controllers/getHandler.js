@@ -15,7 +15,14 @@ const listPublishedSurvey = (req, res, next) => {
 };
 
 const listAllOpenSurvey = (req, res) => {
-    survey.find({date_close: { $}})
+    survey.find({date_close: { $gte: Date() }})
+        .exec({
+            function(error, survey_list){
+                if (error) return next(error);
+
+                res.send(JSON.stringify(survey_list));
+            }
+        });
 };
 
 const surveyDetail = (req, res) => {
