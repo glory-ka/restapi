@@ -38,6 +38,7 @@ const otherResponse = ( req, res, next ) => {
 
     const validateUser = await UserInfo.find( { userUUID: req.userID } )
         .exec();
+
     const validateSurvey = await Survey.find( { surveyName: req.name } )
         .exec();
 
@@ -45,7 +46,7 @@ const otherResponse = ( req, res, next ) => {
         req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
 
     if ( validateSurvey.isAnswerExist( req.body.reponse ) )
-        req.send( JSON.stringify( { Error: "Incorrect Alernative response format" } ) );
+        returnError( 'Incorrect Alernative response format', next );
 
     const response = new Response( {
         user: validateUser,
