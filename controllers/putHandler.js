@@ -46,7 +46,7 @@ const deleteSurvey = ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null )
-        req.send( JSON.stringify( { Error: "Incorrect user id" } ) );
+       returnError( 'Incorrect user id', next );
 
     const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
         .populate( 'ownerInfo' )
