@@ -4,7 +4,7 @@ const survey = require('../models/surveyModel');
 /** GET CONTROLLER */
 
 const listPublishedSurvey = (req, res, next) => {
-    survey.find( { status: 'published', ownerName: {$not: {req.}} } )
+    survey.find( { status: 'published', ownerName: { $not: { req.userID }} } ) // CHANGE USERID TO USER NAME
         .exec({
             function ( error, survey_list ){
                 if ( error ) return next( error );
