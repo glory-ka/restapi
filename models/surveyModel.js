@@ -25,4 +25,9 @@ surveyFormatSchema
     question.question = newQuestion;
 });
 
+surveyFormatSchema
+.virtual('doesExist')
+.get (function() => {
+    return this.question.hasOwnProperty();
+});
 
