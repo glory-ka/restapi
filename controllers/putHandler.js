@@ -36,6 +36,19 @@ const deleteUserResponse = ( req, res, next ) => {
 
 const deleteSurvey = ( req, res, next ) => {
 
+    const validateUser = await UserInfo.find( { userUUID: req.ownerID } )
+        .exec();
+
+    if ( validateUser == null )
+        req.send( JSON.stringify( { Error: "Incorrect user id" } ) );
+
+    const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
+        .populate( 'ownerInfo' )
+        .exec();
+
+    if ( validateSurvey == null )
+        req.send( JSON.stringify( { Error: "Incorrect survey name" } ) );
+
     Survey.deleteOne( {} );
 };
 
