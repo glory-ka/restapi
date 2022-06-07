@@ -6,7 +6,6 @@ const UserInfo = require( '../models/userIdModel' );
 
 const respondToSurvey = ( req, res, next ) => {
     UserInfo.find( { userUUID: req.userID } )
-        .orFail()
         .exec( {
             function ( error, userInfo) {};
         } );
