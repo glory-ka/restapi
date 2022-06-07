@@ -10,12 +10,13 @@ const deleteUserResponse = ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null ){
-        returnError( 'Incorrect User Id', next );
+        returnError( 'Incorrect User Id', next )
     }
 
     const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
-                                    .populate( 'ownerInfo' )
-                                    .exec();
+        .populate( 'ownerInfo' )
+        .exec();
+
     if ( validateSurvey == null ){
         returnError( 'Incorrect Survey Name', next );
     }
