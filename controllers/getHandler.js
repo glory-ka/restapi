@@ -9,7 +9,7 @@ const listPublishedSurvey = (req, res, next) => {
             function (error, survey_list){
                 if (error) return next(error);
 
-                res.send(stringify(survey_list));
+                res.send(JSON.stringify( survey_list.filter(survey => )));
             }
         });
 };
