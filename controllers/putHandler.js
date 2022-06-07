@@ -49,7 +49,14 @@ const deleteSurvey = ( req, res, next ) => {
     if ( validateSurvey == null )
         req.send( JSON.stringify( { Error: "Incorrect survey name" } ) );
 
-    await Survey.deleteOne( { surveyName: req.name } );
+    await Survey.deleteOne( { surveyName: req.name } )
+        .exec(
+            function( error, result ) {
+                if ( error ) return next(error);
+
+                res.send( JSON.stringify( { status: "Survey successfully deleted" } ) );
+            }
+        );
 };
 
 
