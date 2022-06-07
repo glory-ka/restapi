@@ -14,7 +14,14 @@ const respondToSurvey = ( req, res, next ) => {
     if ( validateUser == null || validateSurvey == null )
         return;
 
-    const servey = new Survey
+    const servey = new Survey( {
+        surveyName: res.,
+        ownerName: {type: String, required: true},
+        date_open: {type: Date, require: true},
+        date_close: {type: Date, require: true},
+        status: {type: String, require: true, enum: ['published', 'unpublished']},
+        question: {type: Map, of: String, require: true}
+    } );
 
 };
 
