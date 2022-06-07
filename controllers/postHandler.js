@@ -1,15 +1,17 @@
 const Survey = require( '../models/surveyModel' );
 const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
+const returnError = require( './errorHandling' );
 
 /** POST ROUTE */
 
 const respondToSurvey = ( req, res, next ) => {
 
     const validateUser = await UserInfo.find( { userUUID: req.userID } )
-                                .exec();
+        .exec();
+
     const validateSurvey = await Survey.find( { surveyName: req.name } )
-                                .exec();
+        .exec();
 
     if ( validateUser == null || validateSurvey == null )
         req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
