@@ -8,7 +8,7 @@ const changeSurveyStatus = ( req, res, next ) => {
 
     const ownerInfo = await UserInfo.find( { userUUID: req.ownerID } ).exec();
 
-    Survey.find( { surveyName: req.name, ownerInfo: ownerInfo } )
+    await Survey.find( { surveyName: req.name, ownerInfo: ownerInfo } )
         .exec(
             function( error, survey ){
                 if ( error ) return next( error );
@@ -25,8 +25,9 @@ const changeSurveyStatus = ( req, res, next ) => {
 
 const changeSurveyQuestion = ( req, res, next ) => {
 
-    const ownerInfo = UserInfo.find
-    Survey.find( { surveyName: req.name } )
+    const ownerInfo = await UserInfo.find( { userUUID: req.ownerID } ).exec();
+
+    await Survey.find( { surveyName: req.name, ownerInfo: ownerInfo } )
     .exec(
         function( error, survey ){
             if ( error ) return next( error );
