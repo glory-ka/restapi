@@ -28,6 +28,9 @@ const deleteUserResponse = ( req, res, next ) => {
             function( error, response_list ){
                 if ( error ) return next( error );
 
+                if ( response_list == null )
+                    returnError( 'User Response not found' , next )
+
                 response_list.forEach( response => {
                     if (response.name === req.body.name){
                         response.changeResponse = undefined;
