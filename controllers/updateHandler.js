@@ -8,8 +8,9 @@ const UserInfo = require( '../models/userIdModel' );
 const changeSurveyStatus = ( req, res, next ) => {
 
     Survey.find( { surveyName: req.name } )
-        .exec( {
-            function() {}
+        .exec(
+            function( error, survey ){
+                
         } );
 };
 
