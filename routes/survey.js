@@ -20,7 +20,7 @@ router.post('/:name/:userID/otherResponse', otherResponse);
 
 
 /** PUT ROUTER */
-router.put('/:name/:userID/delete', deleteUserResponse);
+router.put('/:name/:ownerID/:userName/delete', deleteUserResponse);
 router.put('/:name/:userID/deleteSurvey', deleteSurvey);
 
 
