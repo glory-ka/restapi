@@ -14,7 +14,7 @@ const respondToSurvey = ( req, res, next ) => {
     if ( validateUser == null || validateSurvey == null )
         return;
 
-    const validateAnswer = validateSurvey
+    const validateAnswer = validateSurvey.
 
     const response = new Response( {
         user: validateUser,
