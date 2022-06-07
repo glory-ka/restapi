@@ -4,5 +4,6 @@ const Schema = mongoose.Schema;
 
 const responseSChema = new Schema({
     name: {type: String, required: true},
-    response:
+    response: {type: String, required: true},
+    survey: {}
 });
