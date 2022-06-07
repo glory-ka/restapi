@@ -5,6 +5,7 @@ const UserInfo = require( '../models/userIdModel' );
 /** POST ROUTE */
 
 const respondToSurvey = ( req, res, next ) => {
+
     const validateUser = await UserInfo.find( { userUUID: req.userID } )
                                 .exec();
     const validdateSurvey = await Survey.find( { surveyName: req.name } )
@@ -13,7 +14,7 @@ const respondToSurvey = ( req, res, next ) => {
     if ( validateUser == null || validateSurvey == null )
         return;
 
-    
+    const servey = new Survey
 
 };
 
