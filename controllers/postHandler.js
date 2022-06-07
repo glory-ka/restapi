@@ -1,4 +1,5 @@
-
+const Survery = require( '../models/surveyModel' );
+const Response = require( '../models/responseModel' );
 
 /** POST ROUTE */
 
