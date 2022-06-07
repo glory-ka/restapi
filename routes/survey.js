@@ -4,7 +4,7 @@ const router = express.Router();
 const { listPublishedSurvey, listAllOpenSurvey, surveyDetail, surveyResponseCount } = require('../controllers/getHandler');
 const { respondToSurvey, otherResponse } = require( '../controllers/postHandler');
 const { deleteUserResponse, deleteSurvey } = require( '../controllers/putHandler');
-const { changeQuestionStatus, changeSurveyQuestion } = require('../controllers/updateHandler');
+const { changeSurveryStatus, changeSurveyQuestion } = require('../controllers/updateHandler');
 
 
 /** GET ROUTER */
@@ -23,6 +23,9 @@ router.post('/:name/:userID/otherResponse', otherResponse);
 router.put('/:name/:ownerID/:userName/delete', deleteUserResponse);
 router.put('/:name/:ownerID/deleteSurvey', deleteSurvey);
 
+/** UPDATE ROUTER */
+router.update('/:name/:ownerID/updateStatus', changeSurveryStatus);
+router.update('/:name/:ownerID/updateQuestion', changeSurveyQuestion);
 
 
 export router;
