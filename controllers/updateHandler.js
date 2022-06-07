@@ -7,7 +7,10 @@ const UserInfo = require( '../models/userIdModel' );
 
 const changeSurveyStatus = ( req, res, next ) => {
 
-    Survey.find( { surveyName:  } )
+    Survey.find( { surveyName: req.name } )
+        .exec( {
+            function() {}
+        } );
 };
 
 const changeSurveyQuestion = (req, res) => {
