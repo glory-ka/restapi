@@ -22,8 +22,10 @@ const deleteUserResponse = ( req, res, next ) => {
     const response = await Response.find( { survey: validateSurvey } )
                                 .populate( ['user', 'survey'] )
                                 .exec(
-                                    function( error, reponse_list ){
+                                    function( error, response_list ){
                                         if ( error ) return next( error );
+
+                                        response_list.
                         } );
     if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
     req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
