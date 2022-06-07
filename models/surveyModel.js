@@ -16,12 +16,20 @@ const surveyFormatSchema = new Schema ({
 surveyFormatSchema
 .virtual('survey')
 .get (function() => {
-    return ({
+    return {
         surveyName: this.surveyName,
         ownerName: this.ownerName,
         date_open: this.date_open,
         date_close: this.date_close,
         status: this.status,
         question: this.question
-    });
+    };
 });
+
+surveyFormatSchema
+.virtual('surveyName')
+.get (function() => {
+    return this.surveyName;
+});
+
+
