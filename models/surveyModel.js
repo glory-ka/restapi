@@ -3,7 +3,7 @@ const mangoose = require('mongoose');
 const Schema = mangoose.Schema;
 
 
-const surveyFormat = new Schema ({
+const surveyFormatSchema = new Schema ({
     surveyName: {type: String, required: true},
     ownerName: {type: String, required: true},
     date_open: {type: Date, require: true},
@@ -12,3 +12,6 @@ const surveyFormat = new Schema ({
     question: {type: Map, of: String, require: true}
 });
 
+
+surveyFormatSchema
+.virtual('survey')
