@@ -44,6 +44,14 @@ const surveyResponseCount = ( req, res, next ) => {
                 if( error ) return next( error );
 
                 Response.find( { servey: servey } )
+                    .populate()
+                    .exec( {
+                        function( error, survey ){
+                            if( error ) return next ( error );
+
+                            res.send( JSON.stringify( servey.length ) );
+                        };
+                    } );
             }
         } );
 };
