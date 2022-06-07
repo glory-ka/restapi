@@ -7,7 +7,9 @@ const returnError = require( './errorHandling' );
 
 const listPublishedSurvey = ( req, res, next ) => {
 
-    await Survey.find( { status: 'published', ownerName: { $not: { req.userID } } } ) // CHANGE USERID TO USER NAME
+    const validateUser = await UserInfo.find( {  } ).exec();
+
+    await Survey.find( { status: 'published', ownerInfo: { $not: { req.} } } ) // CHANGE USERID TO USER NAME
         .exec(
             function ( error, survey_list ){
                 if ( error ) return next( error );
