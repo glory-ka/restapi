@@ -8,7 +8,7 @@ const respondToSurvey = ( req, res, next ) => {
 
     const validateUser = await UserInfo.find( { userUUID: req.userID } )
                                 .exec();
-    const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
+    const validateSurvey = await Survey.find( { surveyName: req.name } )
                                 .exec();
 
     if ( validateUser == null || validateSurvey == null )

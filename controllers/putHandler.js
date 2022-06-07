@@ -8,11 +8,11 @@ const deleteUserResponse = ( req, res, next ) => {
 
     const validateUser = await UserInfo.find( { userUUID: req.userID } )
                                     .exec();
-    const validateSurvey = await Survey.find( { surveyName: req.name } )
+    const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
                                     .exec();
 
-if ( validateUser == null || validateSurvey == null )
-req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
+    if ( validateUser == null || validateSurvey == null )
+        req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
 
 if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
 req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
