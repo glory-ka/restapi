@@ -29,10 +29,10 @@ const listAllOpenSurvey = ( req, res, next ) => {
 const surveyDetail = ( req, res, next ) => {
     Survey.find( { surveyName: req.name } )
         .exec( {
-            function( error, survey_list ){
-                if (error) return next( error );
+            function( error, survey ){
+                if ( error ) return next( error );
 
-                res.send( JSON.stringify( survey_list ));
+                res.send( JSON.stringify( survey ));
             }
         } );
 };
@@ -40,9 +40,12 @@ const surveyDetail = ( req, res, next ) => {
 const surveyResponseCount = ( req, res, next ) => {
     Survey.find( { surveyName: req.name } )
         .exec( {
-            
+            function( error, survey ){
+                if( error ) return next( error );
+
+                Response.find( {  } )
+            }
         } );
-   Response.find()
 };
 
 export {
