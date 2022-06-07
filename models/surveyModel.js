@@ -15,18 +15,18 @@ const surveyFormatSchema = new Schema ({
 
 surveyFormatSchema
 .virtual('changeStatus')
-.set (function() => {
+.set ( function() {
     status = "published";
 });
 
 surveyFormatSchema
 .virtual('changeQuestion')
-.set (function(newQuestion) => {
+.set (function(newQuestion) {
     question.question = newQuestion;
 });
 
 surveyFormatSchema
-.method ('isAnswerExist', function(answer) => {
+.method ('isAnswerExist', function(answer) {
     return this.question.hasOwnProperty(answer);
 });
 
