@@ -32,6 +32,12 @@ const changeSurveyQuestion = ( req, res, next ) => {
         function( error, survey ){
             if ( error ) return next( error );
 
+            if ( survey == null ){
+                const err = new Error( 'Survey not found' );
+                err.status = 404;
+                return next( err );
+            }
+
             if ( survey.status === "unpublished" )
                 return ( new Error( 'Survey already publish' ); )
 
