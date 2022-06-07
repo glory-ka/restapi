@@ -15,7 +15,7 @@ const listPublishedSurvey = (req, res, next) => {
 };
 
 const listAllOpenSurvey = (req, res) => {
-    console.log("Not Yet implemented");
+    survey.find({date_close: { $}})
 };
 
 const surveyDetail = (req, res) => {
