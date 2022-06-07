@@ -1,11 +1,14 @@
 const Survey = require( '../models/surveyModel' );
+const UserInfo = require( '../models/userIdModel' );
 
 
 /** UPDATE ROUTE */
 
 const changeSurveyStatus = ( req, res, next ) => {
 
-    Survey.find( { surveyName: req.name } )
+    const ownerInfo = UserInfo.find( { userUUID: req.ownerID } )
+
+    Survey.find( { surveyName: req.name, ownerInfo: ownerInfo } )
         .exec(
             function( error, survey ){
                 if ( error ) return next( error );
