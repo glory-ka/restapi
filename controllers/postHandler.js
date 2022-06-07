@@ -8,13 +8,13 @@ const respondToSurvey = ( req, res, next ) => {
 
     const validateUser = await UserInfo.find( { userUUID: req.userID } )
                                 .exec();
-    const validdateSurvey = await Survey.find( { surveyName: req.name } )
-                                .exec();
-    const validateResponse = await Response.find( {  } )
+    const validateSurvey = await Survey.find( { surveyName: req.name } )
                                 .exec();
 
     if ( validateUser == null || validateSurvey == null )
         return;
+
+    const validateAnswer = validateSurvey
 
     const response = new Response( {
         user: validateUser,
