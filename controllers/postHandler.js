@@ -13,11 +13,11 @@ const respondToSurvey = ( req, res, next ) => {
 
     if ( validateUser == null || validateSurvey == null ) return;
 
-    if ( ! validateSurvey.isAnswerExist( req.body.answer ) ) return;
+    if ( ! validateSurvey.isAnswerExist( req.body.reponse ) ) return;
 
     const response = new Response( {
         user: validateUser,
-        response: validateResponse,
+        response: req.body.response,
         survey: validateSurvey
     } );
 
