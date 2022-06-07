@@ -2,8 +2,8 @@
 
 /** POST ROUTE */
 
-const respondToSurvey = (req, res) => {
-    console.log("Not Yet implemented");
+const respondToSurvey = ( req, res, next ) => {
+    
 };
 
 
