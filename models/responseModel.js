@@ -8,3 +8,5 @@ const responseSChema = new Schema({
     survey: {type: Schema.Types.ObjectId, ref: 'surveyFormat', required: true}
 });
 
+
+export mongoose.model('response', responseSchema);
