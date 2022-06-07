@@ -20,8 +20,10 @@ const respondToSurvey = ( req, res, next ) => {
         date_open: res.body.date_open,
         date_close: res.body.date_close,
         status: res.body.status,
-        question: {type: Map, of: String, require: true}
+        question: res.body.question
     } );
+
+    
 
 };
 
