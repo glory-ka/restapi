@@ -20,7 +20,7 @@ surveyFormatSchema
 });
 
 surveyFormatSchema
-.virtual('surveyName')
+.virtual('changeQuestion')
 .get (function() => {
     return this.surveyName;
 });
