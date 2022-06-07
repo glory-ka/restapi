@@ -14,7 +14,7 @@ const respondToSurvey = ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
-        req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
+         returnError( 'Incorrect user id or survey name', next );
 
     if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
         req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
