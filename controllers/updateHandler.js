@@ -16,9 +16,8 @@ const changeSurveyStatus = ( req, res, next ) => {
             function( error, survey ){
                 if ( error ) return next( error );
 
-                if ( survey == null ){
+                if ( survey == null )
                     returnError( 'Survey not found', next );
-                }
 
                 survery.changeStatus = req.body.status;
         } );
@@ -28,22 +27,23 @@ const changeSurveyQuestion = ( req, res, next ) => {
 
     const ownerInfo = await UserInfo.find( { userUUID: req.ownerID } ).exec();
 
+    if ( ownerInfo == null )
+        returnError( 'User not found', next );
+
     await Survey.find( { surveyName: req.name, ownerInfo: ownerInfo } )
-    .exec(
-        function( error, survey ){
-            if ( error ) return next( error );
+        .exec(
+            function( error, survey ){
+                if ( error ) return next( error );
 
-            if ( survey == null ){
-                const err = new Error( 'Survey not found' );
-                err.status = 404;
-                return next( err );
-            }
+                if ( survey == null )
+                   returnError ( 'Survey not found', next );
 
-            if ( survey.status === "unpublished" )
-                return ( new Error( 'Survey already publish' ); )
 
-            survey.changeQuestion = req.body.question;
-    } );
+                if ( survey.status === "unpublished" )
+                    return ( new Error( 'Survey already publish' ); )
+
+                survey.changeQuestion = req.body.question;
+        } );
 };
 
 export {
