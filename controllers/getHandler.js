@@ -14,7 +14,7 @@ const listPublishedSurvey = (req, res, next) => {
         });
 };
 
-const listAllOpenSurvey = (req, res, next) => {
+const listAllOpenSurvey = ( req, res, next ) => {
     survey.find( { date_close: { $gte: Date() }})
         .exec( {
             function( error, survey_list ){
@@ -25,12 +25,19 @@ const listAllOpenSurvey = (req, res, next) => {
         });
 };
 
-const surveyDetail = (req, res, next) => {
-    survey.find()
+const surveyDetail = ( req, res, next ) => {
+    survey.find( { surveyName: req.name } )
+        .exec({
+            function( error, survey_list ){
+                if (error) return next( error );
+
+                res.send( JSON.stringify( survey_list ));
+            }
+        });
 };
 
-const surveyResponseCount = (req, res) => {
-    console.log("Not Yet implemented");
+const surveyResponseCount = ( req, res, next ) => {
+   servey.find()
 };
 
 export {
