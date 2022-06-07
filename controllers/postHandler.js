@@ -11,7 +11,8 @@ const respondToSurvey = ( req, res, next ) => {
     const validateSurvey = await Survey.find( { surveyName: req.name } )
                                 .exec();
 
-    if ( validateUser == null || validateSurvey == null ) return;
+    if ( validateUser == null || validateSurvey == null )
+        req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
 
     if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
         req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
@@ -38,7 +39,8 @@ const otherResponse = ( req, res, next ) => {
     const validateSurvey = await Survey.find( { surveyName: req.name } )
         .exec();
 
-    if ( validateUser == null || validateSurvey == null ) ;
+    if ( validateUser == null || validateSurvey == null )
+        req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
 
     if ( validateSurvey.isAnswerExist( req.body.reponse ) )
         req.send( JSON.stringify( { Error: "Incorrect Alernative response format" } ) );
