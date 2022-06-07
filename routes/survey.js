@@ -21,7 +21,7 @@ router.post('/:name/:userID/otherResponse', otherResponse);
 
 /** PUT ROUTER */
 router.put('/:name/:ownerID/:userName/delete', deleteUserResponse);
-router.put('/:name/:userID/deleteSurvey', deleteSurvey);
+router.put('/:name/:ownerID/deleteSurvey', deleteSurvey);
 
 
 

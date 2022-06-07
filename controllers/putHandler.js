@@ -35,7 +35,8 @@ const deleteUserResponse = ( req, res, next ) => {
 };
 
 const deleteSurvey = ( req, res, next ) => {
-    console.log("Not yet implemented");
+
+    Survey.deleteOne( {} );
 };
 
 
