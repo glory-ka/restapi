@@ -10,12 +10,16 @@ const respondToSurvey = ( req, res, next ) => {
                                 .exec();
     const validdateSurvey = await Survey.find( { surveyName: req.name } )
                                 .exec();
+    const validateResponse = await Response.find( {  } )
+                                .exec();
 
     if ( validateUser == null || validateSurvey == null )
         return;
 
     const response = new Response( {
-        
+        user: validateUser,
+        response: validateResponse,
+        survey: validateSurvey
     } );
 
     response.save( function( error ){
