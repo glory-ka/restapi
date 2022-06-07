@@ -22,7 +22,7 @@ const changeSurveyQuestion = ( req, res, next ) => {
             if ( error ) return next( error );
 
             if ( survey.status === "unpublished" )
-                
+                return ( new Error( 'Survey already publish' ); )
 
             survey.changeQuestion = req.body.question;
     } );
