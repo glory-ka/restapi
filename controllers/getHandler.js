@@ -12,7 +12,7 @@ const listPublishedSurvey = ( req, res, next ) => {
     if( validateUser == null )
         returnError( 'Access denied: User not found', next );
 
-    await Survey.find( { status: 'published', ownerInfo: { $not: { req.} } } ) // CHANGE USERID TO USER NAME
+    await Survey.find( { status: 'published', ownerInfo: { $not: { req.userID } } } ) // CHANGE USERID TO USER NAME
         .exec(
             function ( error, survey_list ){
                 if ( error ) return next( error );
