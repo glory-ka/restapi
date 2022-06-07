@@ -26,7 +26,7 @@ surveyFormatSchema
 });
 
 surveyFormatSchema
-.method ('', function() => {
-    return this.question.hasOwnProperty();
+.method ('isAnswerExist', function(answer) => {
+    return this.question.hasOwnProperty(answer);
 });
 
