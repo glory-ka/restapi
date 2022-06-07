@@ -20,20 +20,19 @@ const deleteUserResponse = ( req, res, next ) => {
 
 
     const response = await Response.find( { survey: validateSurvey } )
-                                .populate( ['user', 'survey'] )
-                                .exec(
-                                    function( error, response_list ){
-                                        if ( error ) return next( error );
+        .populate( ['user', 'survey'] )
+        .exec(
+            function( error, response_list ){
+                if ( error ) return next( error );
 
-                                        response_list.forEach( response => {
-                                            if (response.name === req.body.name){
-                                                response.changeResponse = undefined;
-                                            }
-                                        });
-                        } );
-    if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
-    req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
-    };
+                response_list.forEach( response => {
+                    if (response.name === req.body.name){
+                        response.changeResponse = undefined;
+                    }
+                });
+    } );
+
+};
 
 const deleteSurvey = ( req, res, next ) => {
     console.log("Not yet implemented");
