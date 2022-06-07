@@ -8,7 +8,7 @@ const surveyFormatSchema = new Schema ({
     ownerName: {type: String, required: true},
     date_open: {type: Date, require: true},
     date_close: {type: Date, require: true},
-    status: {type: String, require: true, enum: ['publish', 'unpublish']},
+    status: {type: String, require: true, enum: ['published', 'unpublished']},
     question: {type: Map, of: String, require: true}
 });
 

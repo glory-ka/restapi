@@ -4,12 +4,12 @@ const survey = require('../models/surveyModel');
 /** GET CONTROLLER */
 
 const listPublishedSurvey = (req, res, next) => {
-    survey.find()
+    survey.find({status: 'publish'})
         .exec({
             function (error, survey_list){
                 if (error) return next(error);
 
-                res.send(JSON.stringify( survey_list.filter(survey => )));
+                res.send(JSON.stringify(survey_list));
             }
         });
 };
