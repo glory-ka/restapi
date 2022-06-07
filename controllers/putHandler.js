@@ -6,7 +6,7 @@ const UserInfo = require( '../models/userIdModel' );
 
 const deleteUserResponse = ( req, res, next ) => {
 
-    const validateUser = await UserInfo.find( { userUUID: req.userID } )
+    const validateUser = await UserInfo.find( { userUUID: req.ownerID } )
                                     .exec();
     const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
                                     .exec();
