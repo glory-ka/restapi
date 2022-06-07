@@ -16,4 +16,13 @@ responseSchema
             return `${this.user.name}`;
     } );
 
+responseSchema
+    .virtual( 'changeResponse' )
+    .set(
+        function( value ){
+            if( this.response )
+                this.response = value;
+            else
+                this.otherResponse = value;
+        } );
 export mongoose.model('response', responseSchema);

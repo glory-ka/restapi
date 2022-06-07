@@ -27,7 +27,7 @@ const deleteUserResponse = ( req, res, next ) => {
 
                                         response_list.forEach( response => {
                                             if (response.name === req.body.name){
-                                                
+                                                response.changeResponse = undefined;
                                             }
                                         });
                         } );
