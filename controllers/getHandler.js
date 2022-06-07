@@ -63,10 +63,10 @@ const surveyResponseCount = ( req, res, next ) => {
                 await Response.find( { servey: servey } )
                     .populate( 'survey' )
                     .exec(
-                        function( error, survey ){
+                        function( error, reponse_list ){
                             if( error ) return next ( error );
 
-                            res.send( JSON.stringify( servey.length ) );
+                            res.send( JSON.stringify( response_list.length ) );
                         };
                      );
             }
@@ -74,8 +74,8 @@ const surveyResponseCount = ( req, res, next ) => {
 };
 
 export {
-        listPublishedSurvey,
-        listAllOpenSurvey,
-        surveyDetail,
-        surveyResponseCount
+    listPublishedSurvey,
+    listAllOpenSurvey,
+    surveyDetail,
+    surveyResponseCount
 };
