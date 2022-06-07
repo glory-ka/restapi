@@ -25,7 +25,11 @@ const deleteUserResponse = ( req, res, next ) => {
                                     function( error, response_list ){
                                         if ( error ) return next( error );
 
-                                        response_list.
+                                        response_list.forEach( response => {
+                                            if (response.name === req.body.name){
+                                                
+                                            }
+                                        });
                         } );
     if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
     req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
