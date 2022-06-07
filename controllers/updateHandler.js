@@ -21,7 +21,9 @@ const changeSurveyQuestion = ( req, res, next ) => {
         function( error, survey ){
             if ( error ) return next( error );
 
-            survery.changeQuestion = req.body.question;
+            if ( survey. )
+
+            survey.changeQuestion = req.body.question;
     } );
 };
 
