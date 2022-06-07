@@ -8,7 +8,7 @@ const surveyFormatSchema = new Schema ({
     ownerName: {type: String, required: true},
     date_open: {type: Date, require: true},
     date_close: {type: Date, require: true},
-    status: {type: Boolean, require: true},
+    status: {type: String, require: true},
     question: {type: Map, of: String, require: true}
 });
 
@@ -16,6 +16,7 @@ const surveyFormatSchema = new Schema ({
 surveyFormatSchema
 .virtual('changeStatus')
 .set (function() => {
+    status = "published";
 });
 
 surveyFormatSchema
