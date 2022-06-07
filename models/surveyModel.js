@@ -21,8 +21,8 @@ surveyFormatSchema
 
 surveyFormatSchema
 .virtual('changeQuestion')
-.get (function() => {
-    return this.surveyName;
+.set (function(newQuestion) => {
+    question.question = newQuestion;
 });
 
 
