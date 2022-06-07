@@ -29,7 +29,7 @@ const deleteUserResponse = ( req, res, next ) => {
                 if ( error ) return next( error );
 
                 if ( response_list == null )
-                    returnError( 'User Response not found' , next )
+                    returnError( 'User Response not found' , next );
 
                 response_list.forEach( response => {
                     if (response.name === req.body.name){
@@ -73,6 +73,6 @@ const returnError = ( message, next, errorCode=404 ) => {
 
 
 export {
-        deleteUserResponse,
-        deleteSurvey
+    deleteUserResponse,
+    deleteSurvey
 };
