@@ -21,7 +21,8 @@ const changeSurveyQuestion = ( req, res, next ) => {
         function( error, survey ){
             if ( error ) return next( error );
 
-            if ( survey. )
+            if ( survey.status === "unpublished" )
+                
 
             survey.changeQuestion = req.body.question;
     } );
