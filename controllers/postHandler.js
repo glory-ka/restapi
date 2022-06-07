@@ -14,19 +14,14 @@ const respondToSurvey = ( req, res, next ) => {
     if ( validateUser == null || validateSurvey == null )
         return;
 
-    const servey = new Survey( {
-        surveyName: req.body.name,
-        ownerName: validateUser.name,
-        date_open: req.body.date_open,
-        date_close: req.body.date_close,
-        status: req.body.status,
-        question: req.body.question
+    const response = new Response( {
+        
     } );
 
-    servey.save( function( error ){
+    response.save( function( error ){
         if (error) return next( error );
 
-        res.send( JSON.stringify( { status: "Servey Successfully Saved!" } ) );
+        res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
     } );
 
 };
