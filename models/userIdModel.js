@@ -28,6 +28,9 @@ userIdSchema
     } );
 
 userIdSchema
-    .
+    .method( 'isUserUuid' , function ( uuid ) {
+        return this.userUUID === uuid
+    } );
+
 
 export mongoose( 'userId', userIdSchema );
