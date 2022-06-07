@@ -31,8 +31,8 @@ const respondToSurvey = ( req, res, next ) => {
 };
 
 
-const otherResponse = (req, res) => {
-    console.log("Not yet implemented");
+const otherResponse = ( req, res, next ) => {
+    
 };
 
 export {
