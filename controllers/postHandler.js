@@ -1,14 +1,20 @@
-const Survery = require( '../models/surveyModel' );
+const Survey = require( '../models/surveyModel' );
 const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
 
 /** POST ROUTE */
 
 const respondToSurvey = ( req, res, next ) => {
-    UserInfo.find( { userUUID: req.userID } )
-        .exec( {
-            function ( error, userInfo) {};
-        } );
+    const validateUser = await UserInfo.find( { userUUID: req.userID } )
+                                .exec();
+    const validdateSurvey = await Survey.find( { surveyName: req.name } )
+                                .exec();
+
+    if ( validateUser == null || validateSurvey == null )
+        return;
+
+    
+
 };
 
 
