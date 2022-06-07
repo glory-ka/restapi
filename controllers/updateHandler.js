@@ -36,11 +36,10 @@ const changeSurveyQuestion = ( req, res, next ) => {
                 if ( error ) return next( error );
 
                 if ( survey == null )
-                   returnError ( 'Survey not found', next );
-
+                   returnError( 'Survey not found', next );
 
                 if ( survey.status === "unpublished" )
-                    return ( new Error( 'Survey already publish' ); )
+                    returnError( 'Survey already publish', next );
 
                 survey.changeQuestion = req.body.question;
         } );
