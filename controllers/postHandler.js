@@ -25,7 +25,7 @@ const respondToSurvey = ( req, res, next ) => {
         survey: validateSurvey
     } );
 
-    response.save( function( error ){
+    await response.save( function( error ){
         if (error) return next( error );
 
         res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
@@ -54,7 +54,7 @@ const otherResponse = ( req, res, next ) => {
         survey: validateSurvey
     } );
 
-    response.save( function( error ){
+    await response.save( function( error ){
         if (error) return next( error );
 
         res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
