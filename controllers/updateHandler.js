@@ -6,7 +6,7 @@ const UserInfo = require( '../models/userIdModel' );
 
 const changeSurveyStatus = ( req, res, next ) => {
 
-    const ownerInfo = UserInfo.find( { userUUID: req.ownerID } )
+    const ownerInfo = await UserInfo.find( { userUUID: req.ownerID } ).exec();
 
     Survey.find( { surveyName: req.name, ownerInfo: ownerInfo } )
         .exec(
@@ -25,6 +25,7 @@ const changeSurveyStatus = ( req, res, next ) => {
 
 const changeSurveyQuestion = ( req, res, next ) => {
 
+    const ownerInfo = UserInfo.find
     Survey.find( { surveyName: req.name } )
     .exec(
         function( error, survey ){
@@ -38,6 +39,6 @@ const changeSurveyQuestion = ( req, res, next ) => {
 };
 
 export {
-        changeSurveyStatus,
-        changeSurveyQuestion
+    changeSurveyStatus,
+    changeSurveyQuestion
 };
