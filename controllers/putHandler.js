@@ -53,7 +53,7 @@ const deleteSurvey = ( req, res, next ) => {
         .exec();
 
     if ( validateSurvey == null )
-        req.send( JSON.stringify( { Error: "Incorrect survey name" } ) );
+        returnError( 'Incorrect survey name', next );
 
     await Survey.deleteOne( { surveyName: req.name } )
         .exec(
