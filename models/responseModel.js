@@ -9,5 +9,11 @@ const responseSchema = new Schema({
     survey: { type: Schema.Types.ObjectId, ref: 'surveyFormat', required: true }
 });
 
+responseSchema
+    .virtual( 'name' )
+    .get (
+        function() {
+            
+    } );
 
 export mongoose.model('response', responseSchema);
