@@ -5,7 +5,7 @@ const UserInfo = require( '../models/userIdModel' );
 /** POST ROUTE */
 
 const respondToSurvey = ( req, res, next ) => {
-
+    UserInfo.find( { userUUID: req. } )
 };
 
 
