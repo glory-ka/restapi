@@ -15,11 +15,11 @@ const respondToSurvey = ( req, res, next ) => {
         return;
 
     const servey = new Survey( {
-        surveyName: res.,
-        ownerName: {type: String, required: true},
-        date_open: {type: Date, require: true},
-        date_close: {type: Date, require: true},
-        status: {type: String, require: true, enum: ['published', 'unpublished']},
+        surveyName: res.body.name,
+        ownerName: validateUser.name,
+        date_open: res.body.date_open,
+        date_close: res.body.date_close,
+        status: res.body.status,
         question: {type: Map, of: String, require: true}
     } );
 
