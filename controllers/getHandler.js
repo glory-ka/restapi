@@ -13,7 +13,7 @@ const listPublishedSurvey = ( req, res, next ) => {
                 if ( error ) return next( error );
 
                 if ( survey_list == null )
-                    returnError ( 'No Survey found', next );
+                    returnError( 'No Survey found', next );
 
                 res.send( JSON.stringify( survey_list.map( survey => survey.surveyName ) ) );
             }
@@ -28,7 +28,7 @@ const listAllOpenSurvey = ( req, res, next ) => {
                 if ( error ) return next( error );
 
                 if ( survey_list == null )
-                    returnError ( 'No Survey found', next );
+                    returnError( 'No Survey found', next );
 
                 res.send( JSON.stringify( survey_list.map( survey => survey.surveyName ) ) );
             }
