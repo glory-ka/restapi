@@ -1,3 +1,4 @@
+const survey = require('../models/surveyModel');
 
 
 /** GET CONTROLLER */
