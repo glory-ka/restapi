@@ -15,15 +15,19 @@ const respondToSurvey = ( req, res, next ) => {
         return;
 
     const servey = new Survey( {
-        surveyName: res.body.name,
+        surveyName: req.body.name,
         ownerName: validateUser.name,
-        date_open: res.body.date_open,
-        date_close: res.body.date_close,
-        status: res.body.status,
-        question: res.body.question
+        date_open: req.body.date_open,
+        date_close: req.body.date_close,
+        status: req.body.status,
+        question: req.body.question
     } );
 
-    
+    servey.save( function( error ){
+        if (error) return next( error );
+
+        res.send( JSON.stringify( { status: "Servey Successfully Saved!" } ) );
+    } );
 
 };
 
