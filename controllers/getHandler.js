@@ -43,7 +43,7 @@ const surveyResponseCount = ( req, res, next ) => {
             function( error, survey ){
                 if( error ) return next( error );
 
-                Response.find( {  } )
+                Response.find( { servey: servey } )
             }
         } );
 };
