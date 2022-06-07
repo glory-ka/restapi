@@ -13,7 +13,8 @@ const respondToSurvey = ( req, res, next ) => {
 
     if ( validateUser == null || validateSurvey == null ) return;
 
-    if ( ! validateSurvey.isAnswerExist( req.body.reponse ) ) return;
+    if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
+        req.send( JSON.stringify( { Error: "Response doesn't exist" } ) );
 
     const response = new Response( {
         user: validateUser,
