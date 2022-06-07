@@ -9,6 +9,7 @@ const deleteUserResponse = ( req, res, next ) => {
     const validateUser = await UserInfo.find( { userUUID: req.ownerID } )
                                     .exec();
     const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
+                                    .populate( 'ownerInfo' )
                                     .exec();
 
     if ( validateUser == null || validateSurvey == null )
