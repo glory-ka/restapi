@@ -1,6 +1,7 @@
 const Survey = require( '../models/surveyModel' );
 const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
+const returnError = require( './errorHandling' );
 
 /** PUT ROUTE */
 
@@ -64,12 +65,6 @@ const deleteSurvey = ( req, res, next ) => {
             }
         );
 };
-
-const returnError = ( message, next, errorCode=404 ) => {
-    const err = new Error( message );
-    err.status = errorCode;
-    return next( err );
-}
 
 
 export {
