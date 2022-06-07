@@ -13,7 +13,7 @@ responseSchema
     .virtual( 'name' )
     .get (
         function() {
-            
+            return `${this.user.name}`;
     } );
 
 export mongoose.model('response', responseSchema);
