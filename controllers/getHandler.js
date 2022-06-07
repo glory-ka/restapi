@@ -44,7 +44,7 @@ const surveyResponseCount = ( req, res, next ) => {
                 if( error ) return next( error );
 
                 Response.find( { servey: servey } )
-                    .populate()
+                    .populate( 'survey' )
                     .exec( {
                         function( error, survey ){
                             if( error ) return next ( error );
