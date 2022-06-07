@@ -10,18 +10,14 @@ const deleteUserResponse = ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null ){
-        const err = new Error( 'Incorrect user id' );
-        err.status = 404;
-        return next( err );
+        returnError( 'Incorrect User Id', next );
     }
 
     const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
                                     .populate( 'ownerInfo' )
                                     .exec();
     if ( validateSurvey == null ){
-        const err = new Error( 'Incorrect survey name' );
-        err.status = 404;
-        return next( err );
+        returnError( 'Incorrect Survey Name', next );
     }
 
 
@@ -64,6 +60,12 @@ const deleteSurvey = ( req, res, next ) => {
             }
         );
 };
+
+const returnError = ( message, next, errorCode=404 ) => {
+    const err = new Error( message );
+    err.status = errorCode;
+    return next( err );
+}
 
 
 export {
