@@ -14,7 +14,7 @@ mongoose.connect( mongodbUrl, { useNewUrlParser: true, userUnifiedTopology: true
 mongoose.Promise = global.Promise;
 
 var connection = mongoose.connection;
-conection.on( 'error', 'Connection Error to mongodb' );
+connection.on( 'error', 'Connection Error to mongodb' );
 
 var createUser = ( firstName, lastName, uuid ) => {
 
