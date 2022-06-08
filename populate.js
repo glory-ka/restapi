@@ -10,7 +10,7 @@ var mongoose = require( 'mongoose' );
 
 var userArg = process.argv.splice( 2 );
 var mongodbUrl = userArg[ 0 ];
-mongoose.connect( mongodbUrl, { useNewUrlParser: true, userUnifiedTopology: true } );
+mongoose.connect( mongodbUrl, { useNewUrlParser: true, useUnifiedTopology: true } );
 mongoose.Promise = global.Promise;
 
 var connection = mongoose.connection;
@@ -38,3 +38,5 @@ var createUser = ( firstName, lastName, uuid ) => {
 createUser( 'Mathiew', 'Luther', '123abc' );
 createUser( 'Simon', 'Socksi', '3455dds' );
 createUser( 'Andre', 'Kariasim', '53ifnow' );
+
+mongoose.connection.close();
