@@ -16,7 +16,7 @@ const surveyFormatSchema = new Schema ({
 surveyFormatSchema
 .virtual('changeStatus')
 .set ( function() {
-    status = "published";
+    this.status = "published";
 });
 
 surveyFormatSchema

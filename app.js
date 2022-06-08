@@ -17,6 +17,7 @@ app.use( express.urlencoded({ extended: false } ) );
 app.use( cookieParser() );
 app.use( express.static( path.join( __dirname, 'public' ) ) );
 
+
 app.use( '/orangutan/survey', serverRouter );
 
 app.use(function(req, res, next) {
@@ -37,7 +38,7 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 var mongooseDB = process.env.MONGODB_URL || '-';
-mongoose.connect( mongooseDB, { useNewUrlParser: true, useUnifiedTopology: true } )
+mongoose.connect( mongooseDB, { useNewUrlParser: true, useUnifiedTopology: true } );
 
 var connection = mongoose.connection;
-connection.on( 'error' , console.error.bind( console, 'Connection To database Interrupted' ) )
+connection.on( 'error' , console.error.bind( console, 'Connection To database Interrupted' ) );

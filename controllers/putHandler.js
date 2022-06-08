@@ -4,22 +4,29 @@ const returnError = require( './errorHandling' );
 
 /** UPDATE ROUTE */
 
-exports.changeSurveyStatus = ( req, res, next ) => {
+exports.changeSurveyStatus = async ( req, res, next ) => {
+    
+    const ownerInfo = await UserInfo.find( { userUUID: req.params.ownerID } ).exec();
 
-    const ownerInfo = UserInfo.find( { userUUID: req.params.ownerID } ).exec();
-
-    if ( ownerInfo == null )
+    if ( ownerInfo == null || !ownerInfo)
         returnError( 'User not found', next )
-
-    Survey.find( { surveyName: req.body.name, ownerInfo: ownerInfo } )
+        
+    await Survey.find( { surveyName: req.body.name, ownerInfo: ownerInfo } )
         .exec(
-            function( error, survey ){
+            async function( error, survey ){
                 if ( error ) return next( error );
-
-                if ( survey == null )
+                
+                if ( survey == null || !survey)
                     returnError( 'Survey not found', next );
 
-                survery.changeStatus = req.body.status;
+                await Survey.updateOne( { surveyName: req.body.name } , { status: req.body.status } )
+                    .exec( function( error ){
+                        if ( error ) return next( error );
+
+                        res.json( {response: 'Survey status sucessfully changed' } );
+
+                    } );
+                                
         } );
 };
 

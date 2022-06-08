@@ -18,7 +18,7 @@ router.get('/:name/count', surveyResponseCount)
 router.post('/:userID/response', respondToSurvey);
 router.post('/:userID/otherResponse', otherResponse);
 router.post( '/:userID/create', createNewSurvey )
-router.post('/detail', ( res, req, next ) => { res.json( { works: 'yup' } )});
+
 
 /** DELETE ROUTER */
 router.delete('/:ownerID/delete', deleteUserResponse);
