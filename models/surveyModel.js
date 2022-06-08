@@ -4,7 +4,7 @@ const Schema = mangoose.Schema;
 
 
 const surveyFormatSchema = new Schema ({
-    surveyName: {type: String, required: true},
+    surveyName: {type: String, required: true, unique: true},
     ownerInfo: {type: Schema.Types.ObjectId, ref: 'userId', required: true},
     date_open: {type: Date, require: true},
     date_close: {type: Date, require: true},
