@@ -26,4 +26,4 @@ responseSchema
                 this.otherResponse = value;
         } );
 
-export { mongoose.model('response', responseSchema) };
+Module.export.mongoose.model('response', responseSchema);
