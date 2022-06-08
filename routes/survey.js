@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const { listPublishedSurvey, listAllOpenSurvey, surveyDetail, surveyResponseCount } = require('../controllers/getHandler');
-const { respondToSurvey, otherResponse } = require( '../controllers/postHandler');
-const { deleteUserResponse, deleteSurvey } = require( '../controllers/putHandler');
-const { changeSurveyStatus, changeSurveyQuestion } = require('../controllers/updateHandler');
+const { respondToSurvey, otherResponse, createNewSurvey } = require( '../controllers/postHandler');
+const { deleteUserResponse, deleteSurvey } = require( '../controllers/deleteHandler');
+const { changeSurveyStatus, changeSurveyQuestion } = require('../controllers/putHandler');
 
 
 /** GET ROUTER */
@@ -15,17 +15,18 @@ router.get('/:name/count', surveyResponseCount)
 
 
 /** POST ROUTER */
-router.post('/:name/:userID/response', respondToSurvey);
-router.post('/:name/:userID/otherResponse', otherResponse);
+router.post('/:userID/response', respondToSurvey);
+router.post('/:userID/otherResponse', otherResponse);
+router.post( '/:userID/create', createNewSurvey )
+router.post('/detail', ( res, req, next ) => { res.json( { works: 'yup' } )});
 
+/** DELETE ROUTER */
+router.delete('/:ownerID/delete', deleteUserResponse);
+router.delete('/:ownerID/deleteSurvey', deleteSurvey);
 
 /** PUT ROUTER */
-router.put('/:name/:ownerID/delete', deleteUserResponse);
-router.put('/:name/:ownerID/deleteSurvey', deleteSurvey);
-
-/** UPDATE ROUTER */
-router.update('/:name/:ownerID/updateStatus', changeSurveyStatus);
-router.update('/:name/:ownerID/updateQuestion', changeSurveyQuestion);
+router.put('/:ownerID/updateStatus', changeSurveyStatus);
+router.put('/:ownerID/updateQuestion', changeSurveyQuestion);
 
 
 module.exports =  router;

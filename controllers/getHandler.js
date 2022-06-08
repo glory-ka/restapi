@@ -5,14 +5,14 @@ const returnError = require( './errorHandling' );
 
 /** GET CONTROLLER */
 
-const listPublishedSurvey = ( req, res, next ) => {
+exports.listPublishedSurvey = ( req, res, next ) => {
 
-    const validateUser = await UserInfo.find( { userUUID: req.userID } ).exec();
+    const validateUser = UserInfo.find( { userUUID: req.params.userID } ).exec();
 
     if( validateUser == null )
         returnError( 'Access denied: User not found', next );
 
-    await Survey.find( { status: 'published', ownerInfo: { $ne: { req.userID } } } )
+    Survey.find( { status: 'published', ownerInfo: { $ne : req.params.userID } } )
         .exec(
             function ( error, survey_list ){
                 if ( error ) return next( error );
@@ -25,9 +25,9 @@ const listPublishedSurvey = ( req, res, next ) => {
          );
 };
 
-const listAllOpenSurvey = ( req, res, next ) => {
+exports.listAllOpenSurvey = ( req, res, next ) => {
 
-    await Survey.find( { date_close: { $gte: Date() } } )
+    Survey.find( { date_close: { $gte: Date() } } )
         .exec(
             function( error, survey_list ){
                 if ( error ) return next( error );
@@ -40,9 +40,9 @@ const listAllOpenSurvey = ( req, res, next ) => {
          );
 };
 
-const surveyDetail = ( req, res, next ) => {
+exports.surveyDetail = ( req, res, next ) => {
 
-    await Survey.find( { surveyName: req.name } )
+    Survey.find( { surveyName: req.params.name } )
         .exec(
             function( error, survey ){
                 if ( error ) return next( error );
@@ -55,9 +55,8 @@ const surveyDetail = ( req, res, next ) => {
          );
 };
 
-const surveyResponseCount = ( req, res, next ) => {
-
-    await Survey.find( { surveyName: req.name } )
+exports.surveyResponseCount = ( req, res, next ) => {
+    Survey.find( { surveyName: req.params.name } )
         .exec(
             function( error, survey ){
                 if( error ) return next( error );
@@ -65,22 +64,17 @@ const surveyResponseCount = ( req, res, next ) => {
                 if ( survey == null )
                     returnError( 'Survey not found', next );
 
-                await Response.find( { servey: servey } )
+                Response.find( { survey: survey } )
                     .populate( 'survey' )
                     .exec(
-                        function( error, reponse_list ){
+                        function( error, response_list ){
                             if( error ) return next ( error );
 
                             res.send( JSON.stringify( response_list.length ) );
-                        };
+                        }
                      );
             }
          );
 };
 
-export {
-    listPublishedSurvey,
-    listAllOpenSurvey,
-    surveyDetail,
-    surveyResponseCount
-};
+

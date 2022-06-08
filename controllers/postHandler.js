@@ -5,18 +5,18 @@ const returnError = require( './errorHandling' );
 
 /** POST ROUTE */
 
-const respondToSurvey = ( req, res, next ) => {
+exports.respondToSurvey = ( req, res, next ) => {
 
-    const validateUser = await UserInfo.find( { userUUID: req.userID } )
+    const validateUser = UserInfo.find( { userUUID: req.params.userID } )
         .exec();
 
-    const validateSurvey = await Survey.find( { surveyName: req.name } )
+    const validateSurvey = Survey.find( { surveyName: req.body.name } )
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
         returnError( 'Incorrect user id or survey name', next );
 
-    if ( ! validateSurvey.isAnswerExist( req.body.reponse ) )
+    if ( ! validateSurvey.isAnswerExist( req.body.response ) )
         returnError( "Response doesn't exist", next );
 
     const response = new Response( {
@@ -25,7 +25,7 @@ const respondToSurvey = ( req, res, next ) => {
         survey: validateSurvey
     } );
 
-    await response.save( function( error ){
+    response.save( function( error ){
         if (error) return next( error );
 
         res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
@@ -34,12 +34,12 @@ const respondToSurvey = ( req, res, next ) => {
 };
 
 
-const otherResponse = ( req, res, next ) => {
+exports.otherResponse = ( req, res, next ) => {
 
-    const validateUser = await UserInfo.find( { userUUID: req.userID } )
+    const validateUser = UserInfo.find( { userUUID: req.params.userID } )
         .exec();
 
-    const validateSurvey = await Survey.find( { surveyName: req.name } )
+    const validateSurvey = Survey.find( { surveyName: req.body.name } )
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
@@ -54,14 +54,33 @@ const otherResponse = ( req, res, next ) => {
         survey: validateSurvey
     } );
 
-    await response.save( function( error ){
+    response.save( function( error ){
         if (error) return next( error );
 
         res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
     } );
 };
 
-export {
-        respondToSurvey,
-        otherResponse
+exports.createNewSurvey = ( req, res, next ) => {
+
+    const validateUser = UserInfo.find( { userUUID: req.params.userID } ).exec();
+
+    if ( !validateUser || validateUser == null )
+        returnError( 'Access denied: user not found', next );
+
+    const newSurvey = new Survey( {
+        surveyName: req.body.name,
+        ownerInfo: validateUser,
+        date_open: req.body.date_open,
+        date_close: req.body.date_close,
+        status: req.body.status,
+        question: req.body.question
+    } );
+
+    newSurvey.save( ( error ) => {
+
+        if( error ) return next( error );
+
+        res.send( JSON.stringify( { response: 'Survey was sucessfully added' } ) );
+    } );
 };

@@ -1,73 +1,46 @@
 const Survey = require( '../models/surveyModel' );
-const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
 const returnError = require( './errorHandling' );
 
-/** PUT ROUTE */
+/** UPDATE ROUTE */
 
-const deleteUserResponse = ( req, res, next ) => {
+exports.changeSurveyStatus = ( req, res, next ) => {
 
-    const validateUser = await UserInfo.find( { userUUID: req.ownerID } )
-        .exec();
+    const ownerInfo = UserInfo.find( { userUUID: req.params.ownerID } ).exec();
 
-    if ( validateUser == null ){
-        returnError( 'Incorrect User Id', next )
-    }
+    if ( ownerInfo == null )
+        returnError( 'User not found', next )
 
-    const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
-        .populate( 'ownerInfo' )
-        .exec();
-
-    if ( validateSurvey == null ){
-        returnError( 'Incorrect Survey Name', next );
-    }
-
-
-    const response = await Response.find( { survey: validateSurvey } )
-        .populate( ['user', 'survey'] )
+    Survey.find( { surveyName: req.body.name, ownerInfo: ownerInfo } )
         .exec(
-            function( error, response_list ){
+            function( error, survey ){
                 if ( error ) return next( error );
 
-                if ( response_list == null )
-                    returnError( 'User Response not found' , next );
+                if ( survey == null )
+                    returnError( 'Survey not found', next );
 
-                response_list.forEach( response => {
-                    if (response.name === req.body.name){
-                        response.changeResponse = undefined;
-                    }
-                });
-    } );
-
+                survery.changeStatus = req.body.status;
+        } );
 };
 
-const deleteSurvey = ( req, res, next ) => {
+exports.changeSurveyQuestion = ( req, res, next ) => {
 
-    const validateUser = await UserInfo.find( { userUUID: req.ownerID } )
-        .exec();
+    const ownerInfo = UserInfo.find( { userUUID: req.params.ownerID } ).exec();
 
-    if ( validateUser == null )
-       returnError( 'Incorrect user id', next );
+    if ( ownerInfo == null )
+        returnError( 'User not found', next );
 
-    const validateSurvey = await Survey.find( { surveyName: req.name, ownerInfo: validateUser } )
-        .populate( 'ownerInfo' )
-        .exec();
-
-    if ( validateSurvey == null )
-        returnError( 'Incorrect survey name', next );
-
-    await Survey.deleteOne( { surveyName: req.name } )
+    Survey.find( { surveyName: req.body.name, ownerInfo: ownerInfo } )
         .exec(
-            function( error, result ) {
-                if ( error ) return next(error);
+            function( error, survey ){
+                if ( error ) return next( error );
 
-                res.send( JSON.stringify( { status: "Survey successfully deleted" } ) );
-            }
-        );
-};
+                if ( survey == null )
+                   returnError( 'Survey not found', next );
 
+                if ( survey.status === "unpublished" )
+                    returnError( 'Survey already publish', next );
 
-export {
-    deleteUserResponse,
-    deleteSurvey
+                survey.changeQuestion = req.body.question;
+        } );
 };
