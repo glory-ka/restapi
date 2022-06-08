@@ -28,4 +28,4 @@ router.update('/:name/:ownerID/updateStatus', changeSurveyStatus);
 router.update('/:name/:ownerID/updateQuestion', changeSurveyQuestion);
 
 
-export router;
+export { router };

@@ -25,4 +25,5 @@ responseSchema
             else
                 this.otherResponse = value;
         } );
-export mongoose.model('response', responseSchema);
+
+export { mongoose.model('response', responseSchema) };

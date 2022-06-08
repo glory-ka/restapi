@@ -30,4 +30,4 @@ surveyFormatSchema
     return this.question.hasOwnProperty(answer);
 });
 
-export mangoose.model('surveyFormat', surveyFormatSchema);
+export { mangoose.model('surveyFormat', surveyFormatSchema) };
