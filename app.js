@@ -1,8 +1,9 @@
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose = require( 'mongoose' );
 
 var serverRouter = require('./routes/survey.js');
 
@@ -16,5 +17,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/orangutan/survey', serverRouter);
 
-
 module.exports = app;
+
+var mongooseDB = process.env.MONGODB_URL || '-';
+mongoose.connect(mongooseDB, { useNewUrlParse: true, userUnifiedTopology: true })
+
+var connection = mongoose.connection;
+connection.on( 'error' , console.error.bing( console, 'Connection To database Interrupted' ) )
