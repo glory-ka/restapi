@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const userIdSchema = new Schema( {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    userUUID: { type: String, required: true }
+    userUUID: { type: String, required: true , unique: true}
 } );
 
 
