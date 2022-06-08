@@ -23,7 +23,12 @@ app.use( ( req, res, next ) => {
     next( catchError( 404 ) );
 } );
 
-app.use( () )
+app.use( (error, req, res, next ) => {
+
+    res.status( error.status || 500 );
+    res.render( 'error' );
+
+} );
 
 module.exports = app;
 
