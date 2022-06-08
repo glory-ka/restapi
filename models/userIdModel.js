@@ -33,4 +33,4 @@ userIdSchema
     } );
 
 
-module.exports  = mongoose( 'userId', userIdSchema );
+module.exports  = mongoose.model( 'userId', userIdSchema );
