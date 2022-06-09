@@ -24,8 +24,8 @@ router.delete('/:name/delete', deleteUserResponse);
 router.delete('/:name/deleteSurvey', deleteSurvey);
 
 /** PUT ROUTER */
-router.put('/:ownerID/updateStatus', changeSurveyStatus);
-router.put('/:ownerID/updateQuestion', changeSurveyQuestion);
+router.put('/:name/updateStatus', changeSurveyStatus);
+router.put('/:name/updateQuestion', changeSurveyQuestion);
 
 
 module.exports =  router;

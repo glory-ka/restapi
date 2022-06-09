@@ -6,26 +6,21 @@ const { returnError } = require( './errorHandling' );
 
 exports.changeSurveyStatus = async ( req, res, next ) => {
     
-    const ownerInfo = await UserInfo.find( { userUUID: req.params.ownerID } ).exec();
+    const ownerInfo = await UserInfo.findOne( { userUUID: req.body.ownerId } ).exec();
 
-    if ( ownerInfo == null || !ownerInfo)
+    if ( ownerInfo == null )
         returnError( 'User not found', next )
         
-    await Survey.find( { surveyName: req.body.name, ownerInfo: ownerInfo } )
+    await Survey.findOneAndUpdate( { surveyName: req.params.name, ownerInfo: ownerInfo }, { status: req.body.status } )
         .exec(
             async function( error, survey ){
                 if ( error ) return next( error );
                 
-                if ( survey == null || !survey )
-                    returnError( 'Survey not found', next );
+                if ( survey == null ) 
+                    returnError( 'Survey Not found', next );
 
-                await Survey.updateOne( { surveyName: req.body.name } , { status: req.body.status } )
-                    .exec( function( error ){
-                        if ( error ) return next( error );
-
-                        res.json( {response: 'Survey Status Sucessfully Changed' } );
-
-                    } );
+                else 
+                    res.json( { response: 'Survey Status Sucessfully Changed', surveyAffected: survey } );
             }                 
         );
 };
@@ -33,32 +28,33 @@ exports.changeSurveyStatus = async ( req, res, next ) => {
 exports.changeSurveyQuestion = async ( req, res, next ) => {
 
     // Returns an array of match
-    const ownerInfo = await UserInfo.find( { userUUID: req.params.ownerID } ).exec();
+    const ownerInfo = await UserInfo.findOne( { userUUID: req.body.ownerId } ).exec();
 
     if ( ownerInfo == null )
         returnError( 'User not found', next );
 
-    await Survey.findOne( { surveyName: req.body.name, ownerInfo: ownerInfo[0] } )
+    await Survey.findOne( { surveyName: req.params.name, ownerInfo: ownerInfo } )
         .exec(
             async function( error, survey ){
                 
                 if ( error ) return next( error );
 
-                if ( survey == null || !survey )
-                   returnError( 'Survey not found', next );
+                if ( survey == null )
+                    returnError( 'Survey Not found', next );
 
-                if ( survey.status === "unpublished" )
-                    returnError( 'Survey already publish', next );
+                if ( survey.status === "published" )
+                    res.json( { response: 'Survey is already published' } ); //CHECK REQUIREMENT
 
                 // This is a Map    
                 const question = survey.question;
                 question.set('question', req.body.question)
 
-                await Survey.updateOne( { surveyName: req.body.name }, { question: question } ).exec( ( error ) => {
+                await Survey.updateOne( { surveyName: req.body.name }, { question: question } )
+                    .exec( ( error ) => {
 
-                    if( error ) return next( error );
+                        if( error ) return next( error );
 
-                    res.json( { response: 'Servey Question Sucessfully Changed' } );
+                        res.json( { response: 'Servey Question Sucessfully Changed' } );
                 });
 
         } );

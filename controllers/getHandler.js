@@ -15,9 +15,9 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
 
         searchBy = { firstName: req.query.firstname, lastName: req.query.lastname };
 
-        const validateUser = await UserInfo.find( { ...searchBy } ).exec();
+        const validateUser = await UserInfo.findOne( { ...searchBy } ).exec();
 
-        if( validateUser == true )
+        if( validateUser == null )
             returnError( 'Access denied: User not found', next );
         
         searchBy = { ownerInfo: validateUser };
@@ -28,13 +28,13 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
 
     await Survey.find( { ...searchBy, status: 'published' } )
     .exec(
-        function( error, survey ){
+        function( error, survey_list ){
             if ( error ) return next( error );
 
-            if ( Object.keys(survey).length == 0 )
+            if ( survey_list.length == 0 )
                 returnError( 'No Survey found', next );
 
-            res.json( { response: survey.map( surveyItem => surveyItem.surveyName ) } );
+            res.json( { response: survey_list/*.map( surveyItem => surveyItem.surveyName )*/ } );
         }
     );
 };
@@ -46,7 +46,7 @@ exports.surveyDetail = async ( req, res, next ) => {
             function( error, survey ){
                 if ( error ) return next( error );
 
-                if ( survey == null || survey == false )
+                if ( survey == null )
                     returnError( 'Survey not found' , next );
 
                 res.json( { response: survey } );
@@ -61,16 +61,16 @@ exports.surveyResponseCount = async ( req, res, next ) => {
             async function( error, survey ){
                 if( error ) return next( error );
 
-                if ( survey == null )
+                if ( Object.keys( servey ).length == 0 )
                     returnError( 'Survey not found', next );
 
                 await Response.find( { survey: survey } )
-                    .populate( 'survey' )
+                    /*.populate( 'survey' ) //Dont have to populate*/
                     .exec(
                         function( error, response_list ){
                             if( error ) return next ( error );
 
-                            res.send( JSON.stringify( response_list.length ) );
+                            res.json( { response: response_list.length } );
                         }
                      );
             }
