@@ -1,64 +1,69 @@
 const Survey = require( '../models/surveyModel' );
 const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
-const returnError = require( './errorHandling' );
+const { returnError } = require( './errorHandling' );
 
 /** POST ROUTE */
 
-exports.respondToSurvey = ( req, res, next ) => {
+exports.respondToSurvey = async ( req, res, next ) => {
 
-    const validateUser = UserInfo.find( { userUUID: req.params.userID } )
+    const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } )
         .exec();
 
-    const validateSurvey = Survey.find( { surveyName: req.body.name } )
+    const validateSurvey = await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
         .exec();
 
-    if ( !validateUser || !validateSurvey || validateUser == null || validateSurvey == null )
+    if ( validateUser == null || validateSurvey == null || 
+            Object.keys( validateUser ).length == 0 ||  Object.keys( validateSurvey ).length == 0 )
         returnError( 'Incorrect user id or survey name', next );
 
-    if ( ! validateSurvey[0].isAnswerExist( req.body.response ) )
+    if ( ! validateSurvey.doesAnswerExist( req.body.response ) )
         returnError( "Response doesn't exist", next );
     
-    if ( validateSurvey[0].status === 'unpublished' )
-        returnError( 'This Servery is not published yet' );
     // TODO: check that only one sruvey is returned
 
+    const validateResponse = await Response.findOne( { user: validateUser } ); 
+
+    if ( validateResponse != null )
+        returnError( "You already have a response", next ); // CHANGE ERROR CODE
+
     const response = new Response( {
-        user: validateUser[0],
+        user: validateUser,
         response: req.body.response,
-        survey: validateSurvey[0]
+        survey: validateSurvey
     } );
 
-    response.save( function( error ){
+    await response.save( function( error ){
         if (error) return next( error );
 
-        res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
+        res.json( { response: "Response Successfully Saved!" } );
     } );
 
 };
 
 
-exports.otherResponse = ( req, res, next ) => {
+exports.otherResponse = async ( req, res, next ) => {
 
-    const validateUser = UserInfo.find( { userUUID: req.params.userID } )
+    const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } )
         .exec();
 
-    const validateSurvey = Survey.find( { surveyName: req.body.name } )
+    const validateSurvey = await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
         .exec();
 
-    if ( validateUser == null || validateSurvey == null )
-        req.send( JSON.stringify( { Error: "Incorrect user id or survey name" } ) );
+    if ( validateUser == null || validateSurvey == null || 
+        Object.keys(validateUser).length == 0 ||  Object.keys(validateSurvey).length == 0 )
+            returnError( 'Incorrect user id or survey name', next );
 
-    if ( validateSurvey.isAnswerExist( req.body.reponse ) )
-        returnError( 'Incorrect Alernative response format', next );
+    if ( validateSurvey.doesAnswerExist( req.body.response ) )
+        returnError( 'Incorrect Alernative response format', next ); // CHANGE ERROR MESSAGE
 
     const response = new Response( {
-        user: validateUser[0],
+        user: validateUser,
         response: req.body.response,
-        survey: validateSurvey[0]
+        survey: validateSurvey
     } );
 
-    response.save( function( error ){
+    await response.save( function( error ){
         if (error) return next( error );
 
         res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
@@ -67,18 +72,21 @@ exports.otherResponse = ( req, res, next ) => {
 
 exports.createNewSurvey = async ( req, res, next ) => {
     
-    const validateUser = await UserInfo.find( { userUUID: req.params.userID } ).exec();
+    const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } ).exec();
     
-    if ( !validateUser || validateUser == null )
-        returnError( 'Access denied: user not found', next );
+    if ( validateUser == null || validateSurvey == null || 
+        Object.keys(validateUser).length == 0 ||  Object.keys(validateSurvey).length == 0 )
+            returnError( 'Incorrect user id or survey name', next );
 
     const newSurvey = new Survey( {
-        surveyName: req.body.name,
-        ownerInfo: validateUser[0],
+
+        surveyName: req.params.name,
+        ownerInfo: validateUser,
         date_open: new Date(req.body.date_open),
         date_close: new Date(req.body.date_close),
         status: req.body.status,
         question: req.body.question
+
     } );
 
     newSurvey.save( ( error ) => {

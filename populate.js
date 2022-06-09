@@ -1,7 +1,10 @@
 #! /usr/bin/env node
 
 // change mode to +x
-// 'MONGODB_URL='mongodb+srv://glory-ka:jDCWKq8RSJuL52r@cluster0.9fhcb.mongodb.net/restapi?retryWrites=true&w=majority'
+// MONGODB_URL='mongodb+srv://glory-ka:jDCWKq8RSJuL52r@cluster0.9fhcb.mongodb.net/restapi?retryWrites=true&w=majority'
+// DEBUG=restapi:*
+// MONGODB_URL=$MONGODB_URL DEBUG=$DEBUG npm run devstart
+
 
 var Response = require( './models/responseModel' );
 var Survey = require( './models/surveyModel' );

@@ -14,20 +14,20 @@ const surveyFormatSchema = new Schema ({
 
 
 surveyFormatSchema
-.virtual('changeStatus')
+.virtual( 'changeStatus' )
 .set ( function() {
     this.status = "published";
 });
 
 surveyFormatSchema
-.virtual('changeQuestion')
-.set (function(newQuestion) {
+.virtual( 'changeQuestion' )
+.set ( function( newQuestion ) {
     question.question = newQuestion;
 });
 
 surveyFormatSchema
-.method ('isAnswerExist', function(answer) {
-    return this.question.hasOwnProperty(answer);
+.method ('doesAnswerExist', function( answer ) {
+    return this.question.has( answer );
 });
 
 module.exports =  mangoose.model('surveyFormat', surveyFormatSchema);

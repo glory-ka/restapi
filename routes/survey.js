@@ -8,21 +8,20 @@ const { changeSurveyStatus, changeSurveyQuestion } = require('../controllers/put
 
 
 /** GET ROUTER */
-router.get('/:userID/published', listPublishedSurvey);
-router.get('/published', listAllOpenSurvey)
+router.get('/published', listPublishedSurvey);
 router.get('/:name/detail', surveyDetail);
 router.get('/:name/count', surveyResponseCount)
 
 
 /** POST ROUTER */
-router.post('/:userID/response', respondToSurvey);
-router.post('/:userID/otherResponse', otherResponse);
-router.post( '/:userID/create', createNewSurvey )
+router.post('/:name/response', respondToSurvey);
+router.post('/:name/otherResponse', otherResponse);
+router.post( '/:name/create', createNewSurvey )
 
 
 /** DELETE ROUTER */
-router.delete('/:ownerID/delete', deleteUserResponse);
-router.delete('/:ownerID/deleteSurvey', deleteSurvey);
+router.delete('/:name/delete', deleteUserResponse);
+router.delete('/:name/deleteSurvey', deleteSurvey);
 
 /** PUT ROUTER */
 router.put('/:ownerID/updateStatus', changeSurveyStatus);

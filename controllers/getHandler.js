@@ -1,70 +1,70 @@
 const Survey = require( '../models/surveyModel' );
 const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
-const returnError = require( './errorHandling' );
+const { returnError } = require( './errorHandling' );
 
 /** GET CONTROLLER */
 
-exports.listPublishedSurvey = ( req, res, next ) => {
+exports.listPublishedSurvey = async ( req, res, next ) => {
 
-    const validateUser = UserInfo.find( { userUUID: req.params.userID } ).exec();
+    let searchBy;
 
-    if( validateUser == null )
-        returnError( 'Access denied: User not found', next );
+    if ( 'firstname'in req.query && 'lastname' in req.query){
 
-    Survey.find( { status: 'published', ownerInfo: { $ne : req.params.userID } } )
-        .exec(
-            function ( error, survey_list ){
-                if ( error ) return next( error );
+        //await Survey.find( { status: 'published', ownerInfo: { $ne : req.params.userID } } )
 
-                if ( survey_list == null )
-                    returnError( 'No Survey found', next );
+        searchBy = { firstName: req.query.firstname, lastName: req.query.lastname };
 
-                res.send( JSON.stringify( survey_list.map( survey => survey.surveyName ) ) );
-            }
-         );
+        const validateUser = await UserInfo.find( { ...searchBy } ).exec();
+
+        if( validateUser == true )
+            returnError( 'Access denied: User not found', next );
+        
+        searchBy = { ownerInfo: validateUser };
+    }
+    else{
+        searchBy = { date_close: { $gte: Date() } }
+    }
+
+    await Survey.find( { ...searchBy, status: 'published' } )
+    .exec(
+        function( error, survey ){
+            if ( error ) return next( error );
+
+            if ( Object.keys(survey).length == 0 )
+                returnError( 'No Survey found', next );
+
+            res.json( { response: survey.map( surveyItem => surveyItem.surveyName ) } );
+        }
+    );
 };
 
-exports.listAllOpenSurvey = ( req, res, next ) => {
+exports.surveyDetail = async ( req, res, next ) => {
 
-    Survey.find( { date_close: { $gte: Date() } } )
-        .exec(
-            function( error, survey_list ){
-                if ( error ) return next( error );
-
-                if ( survey_list == null )
-                    returnError( 'No Survey found', next );
-
-                res.send( JSON.stringify( survey_list.map( survey => survey.surveyName ) ) );
-            }
-         );
-};
-
-exports.surveyDetail = ( req, res, next ) => {
-
-    Survey.find( { surveyName: req.params.name } )
+    await Survey.findOne( { surveyName: req.params.name } )
         .exec(
             function( error, survey ){
                 if ( error ) return next( error );
 
-                if ( survey == null )
+                if ( survey == null || survey == false )
                     returnError( 'Survey not found' , next );
 
-                res.send( JSON.stringify( survey ));
+                res.json( { response: survey } );
             }
          );
 };
 
-exports.surveyResponseCount = ( req, res, next ) => {
-    Survey.find( { surveyName: req.params.name } )
+exports.surveyResponseCount = async ( req, res, next ) => {
+
+    await Survey.find( { surveyName: req.params.name } )
         .exec(
-            function( error, survey ){
+            async function( error, survey ){
                 if( error ) return next( error );
 
                 if ( survey == null )
                     returnError( 'Survey not found', next );
 
-                Response.find( { survey: survey } )
+                await Response.find( { survey: survey } )
                     .populate( 'survey' )
                     .exec(
                         function( error, response_list ){
@@ -74,7 +74,7 @@ exports.surveyResponseCount = ( req, res, next ) => {
                         }
                      );
             }
-         );
+    );
 };
 
 
