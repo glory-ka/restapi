@@ -1,4 +1,4 @@
-GET http://0.0.0.0/orangutan/survey HTTP/1.1
+GET http://0.0.0.0:3000/orangutan/survey/published HTTP/1.1
 
 ###
 GET https://glory-ka-code50-57584382-44xjqvx4fw4g-3000.githubpreview.dev/ HTTP/1.1
