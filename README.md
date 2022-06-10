@@ -17,7 +17,7 @@ command-prompt$ ./populate 'mongodb+srv://<username>:<password>@cluster0.9fhcb.m
 
 ```
 
-The second argument is the 
+The second argument is the URL that points to your mongodb 
 
 GET
 ---
