@@ -80,7 +80,7 @@ exports.createNewSurvey = async ( req, res, next ) => {
     const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } ).exec();
 
     if ( validateUser == null )
-        return res.status( 404 ).json( 'Incorrect user id or survey name', next );
+        return res.status( 404 ).json( { response: 'Incorrect user id or survey name' } );
 
     const newSurvey = new Survey( {
 
