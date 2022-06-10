@@ -42,8 +42,33 @@ Content-Type: application/json
 }
 
 ###
-PUT hhttp://0.0.0.0:3000/orangutan/survey/IronSurvey/create
+PUT hhttp://0.0.0.0:3000/orangutan/survey/IronSurvey/updateStatus
 Content-Type: application/json
 {
-    
+    'ownerId': '3455dds',
+    'status': 'published'
+}
+
+###
+PUT hhttp://0.0.0.0:3000/orangutan/survey/IronSurvey/updateQuestion
+Content-Type: application/json
+{
+    'ownerId': '3455dds',
+    'question': 'What is the most expensive metal'
+}
+
+###
+DELETE http://0.0.0.0:3000/orangutan/survey/IronSurvey/delete
+Content-Type: application/json
+{
+    'ownerId': '3455dds',
+    'firstname': 'Mathiew',
+    'lastname': 'Luther'
+}
+
+###
+DELETE http://0.0.0.0:3000/orangutan/survey/IronSurvey/deleteSurvey
+Content-Type: application/json
+{
+    'ownerId': '3455dds',
 }
