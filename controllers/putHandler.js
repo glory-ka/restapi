@@ -31,7 +31,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
     const ownerInfo = await UserInfo.findOne( { userUUID: req.body.ownerId } ).exec();
 
     if ( ownerInfo == null )
-        res.status( 404 ).json( { response: 'User not found' } );
+        return res.status( 404 ).json( { response: 'User not found' } );
 
     await Survey.findOne( { surveyName: req.params.name, ownerInfo: ownerInfo } )
         .exec(
