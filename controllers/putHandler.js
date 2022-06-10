@@ -50,11 +50,11 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
                 question.set('question', req.body.question)
 
                 await Survey.updateOne( { surveyName: req.body.name }, { question: question } )
-                    .exec( ( error ) => {
+                    .exec( ( error, resp ) => {
 
                         if( error ) return next( error );
 
-                        res.json( { response: 'Survey Question Sucessfully Changed', question /* question:question */ } );
+                        res.json( { response: 'Survey Question Sucessfully Changed', question /* question:question */, status: resp } );
                 });
 
         } );
