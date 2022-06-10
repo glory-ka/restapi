@@ -54,7 +54,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
 
                         if( error ) return next( error );
 
-                        res.json( { response: 'Survey Question Sucessfully Changed', question /* question:question */, status: resp } );
+                        res.json( { response: 'Survey Question Sucessfully Changed', question /* question:question */, status: resp, sur: survey } );
                 });
 
         } );
