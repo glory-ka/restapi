@@ -5,23 +5,23 @@ const { returnError } = require( './errorHandling' );
 /** UPDATE ROUTE */
 
 exports.changeSurveyStatus = async ( req, res, next ) => {
-    
+
     const ownerInfo = await UserInfo.findOne( { userUUID: req.body.ownerId } ).exec();
 
     if ( ownerInfo == null )
-        returnError( 'User not found', next )
-        
+        return returnError( 'User not found', next )
+
     await Survey.findOneAndUpdate( { surveyName: req.params.name, ownerInfo: ownerInfo }, { status: req.body.status } )
         .exec(
             async function( error, survey ){
                 if ( error ) return next( error );
-                
-                if ( survey == null ) 
-                    returnError( 'Survey Not found', next );
 
-                else 
+                if ( survey == null )
+                    return returnError( 'Survey Not found', next );
+
+                else
                     res.json( { response: 'Survey Status Sucessfully Changed', surveyAffected: survey } );
-            }                 
+            }
         );
 };
 
@@ -36,7 +36,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
     await Survey.findOne( { surveyName: req.params.name, ownerInfo: ownerInfo } )
         .exec(
             async function( error, survey ){
-                
+
                 if ( error ) return next( error );
 
                 if ( survey == null )
@@ -45,7 +45,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
                 if ( survey.status === "published" )
                     res.json( { response: 'Survey is already published' } ); //CHECK REQUIREMENT
 
-                // This is a Map    
+                // This is a Map
                 const question = survey.question;
                 question.set('question', req.body.question)
 
