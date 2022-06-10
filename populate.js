@@ -140,6 +140,11 @@ try {
     .then( _ => console.log( 'All data was successfully sent to the database' ))
     .then( _ => mongoose.connection.close())
 
+<<<<<<< HEAD
+=======
+    console.log("All data were succesfully sent to the database");
+    
+>>>>>>> 49dfbd3a7f7e9eb7cd7107ff363694d8153eae36
 } catch( error ) {
 
     console.log( 'Object creation failed: ', error );
