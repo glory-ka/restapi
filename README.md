@@ -3,6 +3,22 @@ Rest Api Assignment
 
 **Description:** This is a simple Rest Api application that responds to client request. The Api is built as a survey management plateform where client can access survey information and create any 'published' survey detail.
 
+USAGE
+-----
+This is a typical Api which means the client can make request, post data, alter the data and delete data using GET, POST, PUT and DELETE methods, respectively.
+The format of the data for PUT, POST and DELETE is given bellow.
+
+To get started, you need to run the populate.js file which is has the execute permission bit set on linux. This file contains initial information that would be fed to your database (MongoDB).
+Not all data would be necessary. You can decide to remove the initial Survey creation and response, however, the Api needs User data to work. I didn't use a true UUID to for user ( what I mean by true is the length of the string that a typical UUID application would generate. The UUIDs I have used are more akin to passwords, weak passwords).
+
+Do the Following to run populate.js:
+```bash
+command-prompt$ ./populate 'mongodb+srv://<username>:<password>@cluster0.9fhcb.mongodb.net/?retryWrites=true&w=majority'
+
+```
+
+The second argument is the 
+
 GET
 ---
 
