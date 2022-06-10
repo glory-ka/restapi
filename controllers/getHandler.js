@@ -19,7 +19,7 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
 
         if( validateUser == null )
             returnError( 'Access denied: User not found', next );
-        
+
         searchBy = { ownerInfo: validateUser };
     }
     else{
@@ -61,7 +61,7 @@ exports.surveyResponseCount = async ( req, res, next ) => {
             async function( error, survey ){
                 if( error ) return next( error );
 
-                if ( Object.keys( servey ).length == 0 )
+                if ( Object.keys( survey ).length == 0 )
                     returnError( 'Survey not found', next );
 
                 await Response.find( { survey: survey } )
