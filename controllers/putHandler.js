@@ -33,7 +33,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
     if ( ownerInfo == null )
         returnError( 'User not found', next );
 
-    await Survey.findOne( { surveyName: req.params.name, ownerInfo: ownerInfo } )
+    await Survey.findOne( { surveyName: req.params.name, ownerInfo: ownerInfo, status: 'unpublished' } )
         .exec(
             async function( error, survey ){
 
