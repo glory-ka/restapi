@@ -31,7 +31,7 @@ exports.deleteUserResponse = async ( req, res, next ) => {
             function( error, response ){
                 if ( error ) return next( error );
 
-                res.json( { response: "Response sucessfully deleted", number: `${response.deletedCount}` } );
+                res.json( { response: "Response sucessfully deleted", report: response } );
         } );
 
 };
@@ -42,13 +42,13 @@ exports.deleteSurvey = async ( req, res, next ) => {
         .exec();
 
     if ( validateOwner == null )
-       returnError( 'Incorrect user id', next );
+       return returnError( 'Incorrect user id', next );
 
     await Survey.findOneAndDelete( { surveyName: req.params.name, ownerInfo: validateOwner } )
        /* .populate( 'ownerInfo' )*/
         .exec(
             function( error, result ) {
-                if ( error ) return next(error);
+                if ( error ) return next( error );
 
                 res.json( { status: "Survey successfully deleted", deleted: result } );
             }
