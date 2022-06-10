@@ -50,10 +50,10 @@ exports.otherResponse = async ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
-            returnError( 'Incorrect user id or survey name', next );
+        return returnError( 'Incorrect user id or survey name', next );
 
     if ( validateSurvey.doesAnswerExist( req.body.response ) )
-        returnError( 'Incorrect Alernative response format', next, errorCode=403 );
+        return returnError( 'Incorrect Alernative response format', next, errorCode=403 );
 
     const response = new Response( {
         user: validateUser,
