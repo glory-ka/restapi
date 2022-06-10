@@ -68,7 +68,7 @@ Content-Type: application/json
 
 {
     "userId": "123abc",
-    "response": "gold"
+    "response": "answer1"
 }
 
 ###
