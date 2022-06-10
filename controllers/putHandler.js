@@ -49,7 +49,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
                 const question = survey.question;
                 question.set('question', req.body.question)
 
-                await Survey.updateOne( { surveyName: req.body.name }, { question: question } )
+                await Survey.updateOne( { surveyName: req.params.name }, { question: question } )
                     .exec( ( error, resp ) => {
 
                         if( error ) return next( error );
