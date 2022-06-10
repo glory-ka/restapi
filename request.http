@@ -10,10 +10,10 @@ GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/detail HTTP/1.1
 GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/count HTTP/1.1
 
 ###
-post http://0.0.0.0:3000/orangutan/survey/geogrsurvey/response
+post http://0.0.0.0:3000/orangutan/survey/Geogrsurvey/response
 content-type: application/json
 {
-    'userid': '53ifnow',
+    'userId': '53ifnow',
     'response': 'congo'
 }
 
@@ -58,10 +58,11 @@ Content-Type: application/json
 }
 
 ###
-POST http://0.0.0.0:3000/orangutan/survey/G
+POST http://0.0.0.0:3000/orangutan/survey/IronSurvey/response
 Content-Type: application/json
 {
-   'userId': '53ifnow',
+   'userId': '123abc',
+   'response': 'gold'
 }
 
 ###
