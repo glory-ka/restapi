@@ -25,7 +25,7 @@ var userList = [];
 var surveyList = [];
 
 var createUser = ( firstName, lastName, uuid ) => {
-    
+
     const user = new UserId({
         firstName: firstName,
         lastName: lastName,
@@ -35,7 +35,7 @@ var createUser = ( firstName, lastName, uuid ) => {
     userList.push( user );
 
     return user.save();
-        
+
 };
 
 const createSurvey = (surveyName, owner, date_open, date_close, status, question ) => {
@@ -121,7 +121,7 @@ try {
     )
 
     // CREATE RESPONSE
-    .then( _ => 
+    .then( _ =>
         Promise.all([
             createResponse(userList[2], 'blue', undefined, surveyList[0]),
             createResponse(userList[3], 'Yemen', undefined, surveyList[1]),
@@ -140,7 +140,7 @@ try {
     .then( _ => mongoose.connection.close())
 
 } catch( error ) {
-    
+
     console.log( 'Object creation failed: ', error );
 }
 
