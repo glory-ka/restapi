@@ -28,10 +28,10 @@ exports.deleteUserResponse = async ( req, res, next ) => {
     await Response.deleteOne( { survey: validateSurvey, user: validateUser } )
         /*.populate( ['user', 'survey'] ) // Dont need to populate */
         .exec(
-            function( error, response ){
+            function( error, _response ){
                 if ( error ) return next( error );
 
-                res.json( { response: "Response sucessfully deleted", report: response } );
+                res.json( { response: "Response sucessfully deleted", report: _response } );
         } );
 
 };
