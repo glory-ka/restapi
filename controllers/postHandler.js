@@ -72,9 +72,8 @@ exports.createNewSurvey = async ( req, res, next ) => {
 
     const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } ).exec();
 
-    if ( validateUser == null || validateSurvey == null ||
-        Object.keys(validateUser).length == 0 ||  Object.keys(validateSurvey).length == 0 )
-            returnError( 'Incorrect user id or survey name', next );
+    if ( validateUser == null )
+        return returnError( 'Incorrect user id or survey name', next );
 
     const newSurvey = new Survey( {
 
