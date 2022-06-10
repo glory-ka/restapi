@@ -17,7 +17,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
         return returnError( 'Incorrect user id or survey name', next );
 
     if ( ! validateSurvey.doesAnswerExist( req.body.response ) )
-        returnError( "Response doesn't exist", next );
+        return returnError( "Response doesn't exist", next );
 
     // TODO: check that only one sruvey is returned
 
