@@ -137,6 +137,7 @@ try {
             createResponse(userList[2], 'blue', undefined, surveyList[0])
         ])
     )
+    .then( _ => console.log( 'All data was successfully sent to the database' ))
     .then( _ => mongoose.connection.close())
 
 } catch( error ) {
