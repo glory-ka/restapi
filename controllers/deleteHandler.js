@@ -50,6 +50,9 @@ exports.deleteSurvey = async ( req, res, next ) => {
             function( error, result ) {
                 if ( error ) return next( error );
 
+                if ( result == null )
+                    return res.status( 404 ).json( { response: "Survey not found" } );
+
                 res.json( { status: "Survey successfully deleted", deleted: result } );
             }
         );
