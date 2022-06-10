@@ -9,12 +9,12 @@ exports.deleteUserResponse = async ( req, res, next ) => {
 
     const validateUser = await UserInfo.findOne( { firstName: req.body.firstname, lastName: req.body.lastname } )
         .exec();
-    
+
     const validateOwner = await UserInfo.findOne( { userUUID: req.body.ownerId } )
         .exec();
-        
+
     if ( validateUser == null || validateOwner == null )
-        returnError( 'User or Owner not found', next )
+        return returnError( 'User or Owner not found', next )
 
 
     const validateSurvey = await Survey.findOne( { surveyName: req.params.name, ownerInfo: validateOwner } )
@@ -22,7 +22,7 @@ exports.deleteUserResponse = async ( req, res, next ) => {
         .exec();
 
     if ( validateSurvey == null )
-        returnError( 'Survey not found', next );
+        return returnError( 'Survey not found', next );
 
 
     await Response.deleteOne( { survey: validateSurvey, user: validateUser } )
