@@ -32,20 +32,10 @@ var createUser = ( firstName, lastName, uuid ) => {
         userUUID: uuid
     });
 
-    return new Promise( (resolve, reject) => {  
+    userList.push( user );
 
-        user.save( ( error ) => {
-
-            if ( error )
-                return next( error );
-
-            userList.push( user );
-            console.log( 'You Sucessfully created an user' );
-
-            resolve();
-        } );
+    return user.save();
         
-    });
 };
 
 const createSurvey = (surveyName, owner, date_open, date_close, status, question ) => {
@@ -61,20 +51,9 @@ const createSurvey = (surveyName, owner, date_open, date_close, status, question
 
     } );
 
-    return new Promise(( resolve, reject ) => { 
-        survey.save( ( error ) => {
+    surveyList.push( survey );
 
-            if( error ){
-                console.log( 'Survey creation failed' );
-                return;
-            }
-
-            surveyList.push( survey );
-            console.log( 'You sucessfully created a survey' );
-
-            resolve();
-        } );
-    });
+    return survey.save();
 };
 
 const createResponse = async ( user, response, otherResponse, survey ) => {
@@ -96,19 +75,9 @@ const createResponse = async ( user, response, otherResponse, survey ) => {
 
     } );
 
-    return new Promise( ( resolve, reject ) => {
-        _response.save( ( error ) => {
-
-            if( error ){
-                console.log( 'Response creation failed' );
-                return;
-            }
-
-            console.log( 'You sucessfully created a response' );
-            resolve();
-        } );
-    });
+    return _response.save();
 };
+
 
 const surveyQuestion = ( question, ...answerList ) => {
 
@@ -127,10 +96,12 @@ const surveyQuestion = ( question, ...answerList ) => {
 const questionGroup1 = surveyQuestion( 'What is the color of the pacific ocean', 'darkblue', 'blue', 'black' );
 const questionGroup2 = surveyQuestion( 'What country is at war taday', 'Yemen', 'Congo', 'Ukrain' );
 
-const run = async () => {
+
+
+try {
 
     // CREATE USERS
-    _ = await Promise.all([
+    Promise.all([
         createUser( 'Mathiew', 'Luther', '123abc' ),
         createUser( 'Simon', 'Socksi', '3455dds' ),
         createUser( 'Andre', 'Kariasim', '53ifnow' ),
@@ -138,32 +109,43 @@ const run = async () => {
     ])
 
     // CREATE SURVEY
-    _ = await Promise.all([
-        createSurvey('OceanSurvey', userList[0], new Date(), new Date('7/12/2022'), 'unpublished', questionGroup1),
-        createSurvey('GeogrSurvey', userList[1], new Date(), new Date('7/10/2022'), 'unpublished', questionGroup2),
-        createSurvey('PolitSurvey', userList[2], new Date(), new Date('6/27/2022'), 'unpublished', questionGroup2),
-        createSurvey('WaterSurvey', userList[3], new Date(), new Date('8/02/2022'), 'unpublished', questionGroup1),
-        createSurvey('NaturSurvey', userList[2], new Date(), new Date('8/30/2022'), 'unpublished', questionGroup1),
-        createSurvey('NatioSurvey', userList[3], new Date(), new Date('9/19/2022'), 'unpublished', questionGroup2)
-    ]);
+    .then( _ =>
+        Promise.all([
+            createSurvey('OceanSurvey', userList[0], new Date(), new Date('7/12/2022'), 'unpublished', questionGroup1),
+            createSurvey('GeogrSurvey', userList[1], new Date(), new Date('7/10/2022'), 'unpublished', questionGroup2),
+            createSurvey('PolitSurvey', userList[2], new Date(), new Date('6/27/2022'), 'unpublished', questionGroup2),
+            createSurvey('WaterSurvey', userList[3], new Date(), new Date('8/02/2022'), 'unpublished', questionGroup1),
+            createSurvey('NaturSurvey', userList[2], new Date(), new Date('8/30/2022'), 'unpublished', questionGroup1),
+            createSurvey('NatioSurvey', userList[3], new Date(), new Date('9/19/2022'), 'unpublished', questionGroup2)
+        ])
+    )
 
     // CREATE RESPONSE
-    Promise.all([
-        createResponse(userList[2], 'blue', undefined, surveyList[0]),
-        createResponse(userList[3], 'Yemen', undefined, surveyList[1]),
-        createResponse(userList[0], 'Congo', undefined, surveyList[1]),
-        createResponse(userList[1], 'darkblue', undefined, surveyList[0]),
-        createResponse(userList[3], 'Ukrain', undefined, surveyList[2]),
-        createResponse(userList[1], 'Congo', undefined, surveyList[2]),
-        createResponse(userList[0], 'black', undefined, surveyList[3]),
-        createResponse(userList[1], 'darkblue', undefined, surveyList[4]),
-        createResponse(userList[2], 'Yemen', undefined, surveyList[5]),
-        createResponse(userList[1], 'Yemen', undefined, surveyList[5]),
-        createResponse(userList[0], 'Ukrain', undefined, surveyList[5]),
-        createResponse(userList[2], 'blue', undefined, surveyList[0])
-    ])
-    .then( _ => mongoose.connection.close() );
+    .then( _ => 
+        Promise.all([
+            createResponse(userList[2], 'blue', undefined, surveyList[0]),
+            createResponse(userList[3], 'Yemen', undefined, surveyList[1]),
+            createResponse(userList[0], 'Congo', undefined, surveyList[1]),
+            createResponse(userList[1], 'darkblue', undefined, surveyList[0]),
+            createResponse(userList[3], 'Ukrain', undefined, surveyList[2]),
+            createResponse(userList[1], 'Congo', undefined, surveyList[2]),
+            createResponse(userList[0], 'black', undefined, surveyList[3]),
+            createResponse(userList[1], 'darkblue', undefined, surveyList[4]),
+            createResponse(userList[2], 'Yemen', undefined, surveyList[5]),
+            createResponse(userList[1], 'Yemen', undefined, surveyList[5]),
+            createResponse(userList[0], 'Ukrain', undefined, surveyList[5]),
+            createResponse(userList[2], 'blue', undefined, surveyList[0])
+        ])
+    )
+    .then( _ => mongoose.connection.close())
 
+} catch( error ) {
+    
+    console.log( 'Object creation failed: ', error );
 }
 
-run();
+
+
+
+
+
