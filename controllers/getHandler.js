@@ -61,7 +61,7 @@ exports.surveyResponseCount = async ( req, res, next ) => {
             async function( error, survey ){
                 if( error ) return next( error );
 
-                if ( Object.keys( survey ).length == 0 )
+                if ( survey == null || Object.keys( survey ).length == 0 )
                     returnError( 'Survey not found', next );
 
                 await Response.find( { survey: survey } )
