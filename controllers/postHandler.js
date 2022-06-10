@@ -53,6 +53,12 @@ exports.otherResponse = async ( req, res, next ) => {
     if ( validateUser == null || validateSurvey == null )
         return returnError( 'Incorrect user id or survey name', next );
 
+
+    const validateResponse = await Response.findOne( { user: validateUser, survey: validateSurvey } ).exec();
+
+    if ( validateResponse != null )
+        return returnError( "You already have a response", next, errorCode=403 );
+
     if ( validateSurvey.doesAnswerExist( req.body.response ) )
         return returnError( 'Incorrect Alernative response format', next, errorCode=403 );
 
