@@ -31,8 +31,8 @@ Content-Type: application/json
 {
     'userId': '3455dds',
     'status': 'unpublished',
-    'date_open':
-    'date_close':
+    'date_open': '2022-06-10T03:01:02.190+00:00',
+    'date_close': '2022-07-10T07:00:00.000+00:00',
     'question': {
         'question': 'What is the strongest metal',
         'answer1': 'copper',
