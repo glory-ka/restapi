@@ -29,5 +29,14 @@ Content-Type: application/json
 POST http://0.0.0.0:3000/orangutan/survey/IronSurvey/create
 Content-Type: application/json
 {
-    ''
+    'userId': '3455dds',
+    'status': 'unpublished',
+    'date_open':
+    'date_close':
+    'question': {
+        'question': 'What is the strongest metal',
+        'answer1': 'copper',
+        'answer2': 'silver',
+        'answer3': 'gold'
+    }
 }
