@@ -18,7 +18,7 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
         const validateUser = await UserInfo.findOne( { ...searchBy } ).exec();
 
         if( validateUser == null )
-            return returnError( 'Access denied: User not found', next );
+            return res.status( 404 ).json( { response:  'Access denied: User not found' } );
 
         searchBy = { ownerInfo: validateUser };
     }
@@ -32,7 +32,7 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
             if ( error ) return next( error );
 
             if ( survey_list.length == 0 )
-                return returnError( 'No Survey found', next );
+                return res.status( 404 ).json( { response:  'No Survey found' } );
 
             res.json( { response: survey_list.map( surveyItem => surveyItem.surveyName ) } );
         }
@@ -48,7 +48,7 @@ exports.surveyDetail = async ( req, res, next ) => {
                 if ( error ) return next( error );
 
                 if ( survey == null )
-                    return returnError( 'Survey not found' , next );
+                    return res.status( 404 ).json( { response:  'Survey not found' } );
 
                 res.json( { response: survey.detail } );
             }
@@ -63,7 +63,7 @@ exports.surveyResponseCount = async ( req, res, next ) => {
                 if( error ) return next( error );
 
                 if ( survey == null || Object.keys( survey ).length == 0 )
-                    return returnError( 'Survey not found', next );
+                    return res.status( 404 ).json( { response:  'Survey not found' } );
 
                 await Response.find( { survey: survey } )
                     /*.populate( 'survey' ) //Dont have to populate*/
