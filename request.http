@@ -10,4 +10,16 @@ GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/detail HTTP/1.1
 GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/count HTTP/1.1
 
 ###
-POST
+POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/response
+Content-Type: application/json
+{
+    'userId': '',
+    'response': 'Congo'
+}
+
+
+POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/otherResponse
+
+
+
+POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/create
