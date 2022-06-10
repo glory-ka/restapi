@@ -49,7 +49,7 @@ PUT http://0.0.0.0:3000/orangutan/survey/NaturSurvey/updateStatus HTTP/1.1
 Content-Type: application/json
 
 {
-    "ownerId": "3455dds",
+    "ownerId": "",
     "status": "published"
 }
 
