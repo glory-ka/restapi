@@ -1,7 +1,7 @@
 const Survey = require( '../models/surveyModel' );
 const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
-const { returnError } = require( './errorHandling' );
+// const { returnError } = require( './errorHandling' );
 
 /** GET CONTROLLER */
 

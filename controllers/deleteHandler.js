@@ -1,7 +1,7 @@
 const Survey = require( '../models/surveyModel' );
 const Response = require( '../models/responseModel' );
 const UserInfo = require( '../models/userIdModel' );
-const { returnError } = require( './errorHandling' );
+// const { returnError } = require( './errorHandling' );
 
 /** PUT ROUTE */
 
@@ -14,7 +14,7 @@ exports.deleteUserResponse = async ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null || validateOwner == null )
-        return returnError( 'User or Owner not found', next )
+        return res.status( 404 ).json( { response: 'User or Owner not found' } );
 
 
     const validateSurvey = await Survey.findOne( { surveyName: req.params.name, ownerInfo: validateOwner } )
@@ -22,7 +22,7 @@ exports.deleteUserResponse = async ( req, res, next ) => {
         .exec();
 
     if ( validateSurvey == null )
-        return returnError( 'Survey not found', next );
+        return res.status( 404 ).json( { response: 'Survey not found' } );
 
 
     await Response.deleteOne( { survey: validateSurvey, user: validateUser } )
@@ -42,7 +42,7 @@ exports.deleteSurvey = async ( req, res, next ) => {
         .exec();
 
     if ( validateOwner == null )
-       return returnError( 'Incorrect user id', next );
+       return res.status( 404 ).json( { response: 'Incorrect user id' } );
 
     await Survey.findOneAndDelete( { surveyName: req.params.name, ownerInfo: validateOwner } )
        /* .populate( 'ownerInfo' )*/
