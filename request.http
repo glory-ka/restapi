@@ -10,11 +10,11 @@ GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/detail HTTP/1.1
 GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/count HTTP/1.1
 
 ###
-POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/response
-Content-Type: application/json
+post http://0.0.0.0:3000/orangutan/survey/geogrsurvey/response
+content-type: application/json
 {
-    'userId': '53ifnow',
-    'response': 'Congo'
+    'userid': '53ifnow',
+    'response': 'congo'
 }
 
 ###
@@ -58,8 +58,15 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://0.0.0.0:3000/orangutan/survey/IronSurvey/delete
+POST http://0.0.0.0:3000/orangutan/survey/G
 Content-Type: application/json
+{
+   'userId': '53ifnow',
+}
+
+###
+DELETE http://0.0.0.0:3000/orangutan/survey/IronSurvey/delete
+   'response': 'Congo'Content-Type: application/json
 {
     'ownerId': '3455dds',
     'firstname': 'Mathiew',
