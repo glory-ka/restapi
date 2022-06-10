@@ -42,7 +42,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
                 if ( survey == null )
                     return returnError( 'Survey Not found', next );
 
-                if ( survey.status === "published" )
+                if ( survey.status === "published" ) // res.json() alone doesn't stop the function execution
                     return res.json( { response: 'You can not change a published survey' } ); //CHECK REQUIREMENT
 
                 // This is a Map
