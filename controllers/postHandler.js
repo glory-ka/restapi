@@ -51,7 +51,7 @@ exports.otherResponse = async ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
-        return res.status( 404 ).json( { response: 'Incorrect user id or survey name' } );
+        return res.status( 404 ).json( { response: "Incorrect user id or survey name" } );
 
 
     const validateResponse = await Response.findOne( { user: validateUser, survey: validateSurvey } ).exec();
@@ -60,7 +60,7 @@ exports.otherResponse = async ( req, res, next ) => {
         return res.status( 404 ).json( { response: "You already have a response" } );
 
     if ( validateSurvey.doesAnswerExist( req.body.response ) )
-        return res.status( 404 ).json( { response: 'Incorrect Alernative response format' } );
+        return res.status( 404 ).json( { response: "Incorrect Alernative response format" } );
 
     const response = new Response( {
         user: validateUser,
@@ -80,7 +80,7 @@ exports.createNewSurvey = async ( req, res, next ) => {
     const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } ).exec();
 
     if ( validateUser == null )
-        return res.status( 404 ).json( { response: 'Incorrect user id or survey name' } );
+        return res.status( 404 ).json( { response: "Incorrect user id or survey name" } );
 
     const newSurvey = new Survey( {
 
@@ -97,6 +97,6 @@ exports.createNewSurvey = async ( req, res, next ) => {
 
         if( error ) return next( error );
 
-        res.json( { response: 'Survey was sucessfully added' } );
+        res.json( { response: "Survey was sucessfully added" } );
     } );
 };
