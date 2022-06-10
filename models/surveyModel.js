@@ -30,16 +30,16 @@ surveyFormatSchema
         return this.question.has( answer );
 });
 
-surveySchema
+surveyFormatSchema
     .virtual( 'detail' )
     .get(
         function(){
           return {
               owner: this.user.name,
-              this.date_open,
-              this.date_close,
-              this.status,
-              this.question
+              date_open: this.date_open,
+              date_close: this.date_close,
+              status: this.status,
+              question: this.question
             }
      } );
 
