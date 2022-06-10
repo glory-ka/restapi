@@ -62,18 +62,17 @@ exports.surveyResponseCount = async ( req, res, next ) => {
                 if( error ) return next( error );
 
                 if ( survey == null || Object.keys( survey ).length == 0 )
-                    returnError( 'Survey not found', next );
+                    return returnError( 'Survey not found', next );
 
-                else
-                    await Response.find( { survey: survey } )
-                        /*.populate( 'survey' ) //Dont have to populate*/
-                        .exec(
-                            function( error, response_list ){
-                                if( error ) return next ( error );
+                await Response.find( { survey: survey } )
+                    /*.populate( 'survey' ) //Dont have to populate*/
+                    .exec(
+                        function( error, response_list ){
+                            if( error ) return next ( error );
 
-                                res.json( { response: response_list.length } );
-                            }
-                        );
+                            res.json( { response: response_list.length } );
+                        }
+                    );
             }
     );
 };
