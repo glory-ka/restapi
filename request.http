@@ -1,9 +1,9 @@
 GET http://0.0.0.0:3000/orangutan/survey/published HTTP/1.1
 
 ###
-GET http://0.0.0.0:3000/orangutan/survey/GeogSurvey/detail HTTP/1.1
+GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/detail HTTP/1.1
 
 ###
-GET http://0.0.0.0:3000/orangutan/survey/GlodiServey/count HTTP/1.1
+GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/count HTTP/1.1
 
 ###
