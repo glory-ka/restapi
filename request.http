@@ -30,16 +30,17 @@ Content-Type: application/json
 ###
 POST http://0.0.0.0:3000/orangutan/survey/IronSurvey/create
 Content-Type: application/json
+
 {
-    'userId': '3455dds',
-    'status': 'unpublished',
-    'date_open': '2022-06-10T03:01:02.190+00:00',
-    'date_close': '2022-07-10T07:00:00.000+00:00',
-    'question': {
-        'question': 'What is the strongest metal',
-        'answer1': 'copper',
-        'answer2': 'silver',
-        'answer3': 'gold'
+    "userId": "3455dds",
+    "status": "unpublished",
+    "date_open": "2022-06-10T03:01:02.190+00:00",
+    "date_close": "2022-07-10T07:00:00.000+00:00",
+    "question": {
+        "question": "What is the strongest metal",
+        "answer1": "copper",
+        "answer2": "silver",
+        "answer3": "gold"
     }
 }
 
@@ -47,38 +48,38 @@ Content-Type: application/json
 PUT hhttp://0.0.0.0:3000/orangutan/survey/IronSurvey/updateStatus
 Content-Type: application/json
 {
-    'ownerId': '3455dds',
-    'status': 'published'
+    "ownerId": "3455dds",
+    "status": "published"
 }
 
 ###
 PUT hhttp://0.0.0.0:3000/orangutan/survey/IronSurvey/updateQuestion
 Content-Type: application/json
 {
-    'ownerId': '3455dds',
-    'question': 'What is the most expensive metal'
+    "ownerId": "3455dds",
+    "question": "What is the most expensive metal"
 }
 
 ###
 POST http://0.0.0.0:3000/orangutan/survey/IronSurvey/response
 Content-Type: application/json
 {
-   'userId': '123abc',
-   'response': 'gold'
+   "userId": "123abc",
+   "response": "gold"
 }
 
 ###
 DELETE http://0.0.0.0:3000/orangutan/survey/IronSurvey/delete
-   'response': 'Congo'Content-Type: application/json
+   "response": "Congo"Content-Type: application/json
 {
-    'ownerId': '3455dds',
-    'firstname': 'Mathiew',
-    'lastname': 'Luther'
+    "ownerId": "3455dds",
+    "firstname": "Mathiew",
+    "lastname": "Luther"
 }
 
 ###
 DELETE http://0.0.0.0:3000/orangutan/survey/IronSurvey/deleteSurvey
 Content-Type: application/json
 {
-    'ownerId': '3455dds',
+    "ownerId": "3455dds",
 }
