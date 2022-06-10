@@ -14,7 +14,7 @@ POST http://0.0.0.0:3000/orangutan/survey/Geogrsurvey/response HTTP/1.1
 content-type: application/json
 
 {
-    "userId": "53ifnowr",
+    "userId": "53ifnow",
     "response": "Congo"
 }
 
