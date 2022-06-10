@@ -14,20 +14,33 @@ const surveyFormatSchema = new Schema ({
 
 
 surveyFormatSchema
-.virtual( 'changeStatus' )
-.set ( function() {
-    this.status = "published";
+    .virtual( 'changeStatus' )
+    .set ( function() {
+        this.status = "published";
 });
 
 surveyFormatSchema
-.virtual( 'changeQuestion' )
-.set ( function( newQuestion ) {
-    question.question = newQuestion;
+    .virtual( 'changeQuestion' )
+    .set ( function( newQuestion ) {
+        question.question = newQuestion;
 });
 
 surveyFormatSchema
-.method ('doesAnswerExist', function( answer ) {
-    return this.question.has( answer );
+    .method ('doesAnswerExist', function( answer ) {
+        return this.question.has( answer );
 });
+
+surveySchema
+    .virtual( 'detail' )
+    .get(
+        function(){
+          return {
+              owner: this.user.name,
+              this.date_open,
+              this.date_close,
+              this.status,
+              this.question
+            }
+     } );
 
 module.exports =  mangoose.model('surveyFormat', surveyFormatSchema);
