@@ -32,7 +32,7 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
             if ( error ) return next( error );
 
             if ( survey_list.length == 0 )
-                return returnError( 'No Survey found', next );
+                returnError( 'No Survey found', next );
 
             res.json( { response: survey_list/*.map( surveyItem => surveyItem.surveyName )*/ } );
         }
