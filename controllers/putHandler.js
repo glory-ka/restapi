@@ -7,7 +7,7 @@ const { returnError } = require( './errorHandling' );
 exports.changeSurveyStatus = async ( req, res, next ) => {
 
     const ownerInfo = await UserInfo.findOne( { userUUID: req.body.ownerId } ).exec();
-`
+    console.log('AAAAAAAAAA', req.body.ownerId)
     if ( ownerInfo == null )
         return returnError( 'User not found', next )
 
