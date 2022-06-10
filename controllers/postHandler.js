@@ -23,7 +23,6 @@ exports.respondToSurvey = async ( req, res, next ) => {
 
     const validateResponse = await Response.findOne( { user: validateUser } ).exec();
 
-    console.log( 'XXXXXXXXXXXX', validateResponse );
     if ( validateResponse != null )
         return returnError( "You already have a response", next, errorCode=403 );
 
@@ -33,7 +32,8 @@ exports.respondToSurvey = async ( req, res, next ) => {
         survey: validateSurvey
     } );
 
-    await response.save( function( error ){
+    // MODEL.prototype.save() doesn't return a promise when called with a callback
+    response.save( function( error ){
         if (error) return next( error );
 
         res.json( { response: "Response Successfully Saved!" } );
