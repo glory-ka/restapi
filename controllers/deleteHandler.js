@@ -48,7 +48,6 @@ exports.deleteSurvey = async ( req, res, next ) => {
        /* .populate( 'ownerInfo' )*/
         .exec(
             function( error, result ) {
-                if ( error ) console.log( 'WWWWWWWWWW' )
                 if ( error ) return next( error );
 
                 res.json( { status: "Survey successfully deleted", deleted: result } );

@@ -86,5 +86,5 @@ DELETE http://0.0.0.0:3000/orangutan/survey/IronSurvey/deleteSurvey
 Content-Type: application/json
 
 {
-    "ownerId": "3455dds",
+    "ownerId": "3455dds"
 }
