@@ -14,17 +14,17 @@ exports.respondToSurvey = async ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
-        return returnError( 'Incorrect user id or survey name', next );
+        return res.status( 404 ).json( { response: "Incorrect user id or survey name" } );
 
     if ( ! validateSurvey.doesAnswerExist( req.body.response ) )
-        return returnError( "Response doesn't exist", next );
+        return res.status( 404 ).json( { response: "Response doesn't exist" } );
 
     // TODO: check that only one sruvey is returned
 
     const validateResponse = await Response.findOne( { user: validateUser, survey: validateSurvey } ).exec();
 
     if ( validateResponse != null )
-        return returnError( "You already have a response", next, errorCode=403 );
+        return res.status( 403 ).json( { response: "You already have a response" } );
 
     const response = new Response( {
         user: validateUser,
@@ -51,16 +51,16 @@ exports.otherResponse = async ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
-        return returnError( 'Incorrect user id or survey name', next );
+        return res.status( 404 ).json( 'Incorrect user id or survey name', next );
 
 
     const validateResponse = await Response.findOne( { user: validateUser, survey: validateSurvey } ).exec();
 
     if ( validateResponse != null )
-        return returnError( "You already have a response", next, errorCode=403 );
+        return res.status( 404 ).json( "You already have a response", next, errorCode=403 );
 
     if ( validateSurvey.doesAnswerExist( req.body.response ) )
-        return returnError( 'Incorrect Alernative response format', next, errorCode=403 );
+        return res.status( 404 ).json( 'Incorrect Alernative response format', next, errorCode=403 );
 
     const response = new Response( {
         user: validateUser,
@@ -80,7 +80,7 @@ exports.createNewSurvey = async ( req, res, next ) => {
     const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } ).exec();
 
     if ( validateUser == null )
-        return returnError( 'Incorrect user id or survey name', next );
+        return res.status( 404 ).json( 'Incorrect user id or survey name', next );
 
     const newSurvey = new Survey( {
 
