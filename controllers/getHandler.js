@@ -41,7 +41,7 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
 
 exports.surveyDetail = async ( req, res, next ) => {
 
-    await Survey.findOne( { surveyName: req.params.name } )
+    await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
         .exec(
             function( error, survey ){
                 if ( error ) return next( error );
@@ -56,7 +56,7 @@ exports.surveyDetail = async ( req, res, next ) => {
 
 exports.surveyResponseCount = async ( req, res, next ) => {
 
-    await Survey.find( { surveyName: req.params.name } )
+    await Survey.find( { surveyName: req.params.name, status: 'published' } )
         .exec(
             async function( error, survey ){
                 if( error ) return next( error );
