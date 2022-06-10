@@ -23,6 +23,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
 
     const validateResponse = await Response.findOne( { user: validateUser } ).exec();
 
+    console.log( 'XXXXXXXXXXXX', validateResponse );
     if ( validateResponse != null )
         return returnError( "You already have a response", next, errorCode=403 );
 
