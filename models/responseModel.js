@@ -26,4 +26,17 @@ responseSchema
                 this.otherResponse = value;
         } );
 
+responseSchema
+    .virtual( 'detail' )
+    .get(
+        function(){
+            return {
+                owner: this.user.name,
+                this.date_open,
+                this.date_close,
+                this.status,
+                this.question
+            }
+     } );
+
 module.exports = mongoose.model('response', responseSchema);

@@ -49,7 +49,7 @@ exports.surveyDetail = async ( req, res, next ) => {
                 if ( survey == null )
                     return returnError( 'Survey not found' , next );
 
-                res.json( { response: survey } );
+                res.json( { response: survey.detail() } );
             }
          );
 };
