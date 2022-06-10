@@ -13,7 +13,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
     const validateSurvey = await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
         .exec();
 
-    console.log( 'XXXXXXXXXXXX', validateUser, validateSurvey );
+    console.log( 'XXXXXXXXXXXX', req.body.userId, validateSurvey );
     if ( validateUser == null || validateSurvey == null )
         return returnError( 'Incorrect user id or survey name', next );
 
