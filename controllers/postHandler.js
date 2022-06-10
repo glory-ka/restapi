@@ -19,7 +19,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
     if ( ! validateSurvey.doesAnswerExist( req.body.response ) )
         return returnError( "Response doesn't exist", next );
 
-    console.log( 'XXXXXXXXXXXX', validateUser, validateSurvey );
+    console.log( 'XXXXXXXXXXXX' );
     // TODO: check that only one sruvey is returned
 
     const validateResponse = await Response.findOne( { user: validateUser } ).exec();
