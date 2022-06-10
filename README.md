@@ -11,8 +11,8 @@ The format of the data for PUT, POST and DELETE is given bellow.
 To get started, you need to run the populate.js file which is has the execute permission bit set on linux.
 This file contains some initial data that would be fed to your database (MongoDB).
 Not all data is necessary though. You can decide to remove the initial __Survey__ creation and __Response__, however, the Api needs __User__ data to work.
-I didn't use a true UUID to for user `userUUID` entry ( what I mean by true is the length of the string that a typical UUID application would generate.
-The UUIDs I have used are more akin to passwords, weak passwords).
+I didn't use a true UUID to for user `userUUID` entry ( what I mean by true is the length of the string that a typical UUID application would generate).
+The UUIDs I have used are more akin to passwords, weak passwords.
 
 Do the Following to run populate.js:
 ```bash
