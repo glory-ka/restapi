@@ -13,8 +13,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
     const validateSurvey = await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
         .exec();
 
-    if ( validateUser == null || validateSurvey == null || 
-            Object.keys( validateUser ).length == 0 ||  Object.keys( validateSurvey ).length == 0 )
+    if ( validateUser == null || validateSurvey == null )
         returnError( 'Incorrect user id or survey name', next );
 
     if ( ! validateSurvey.doesAnswerExist( req.body.response ) )
@@ -25,7 +24,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
     const validateResponse = await Response.findOne( { user: validateUser } ); 
 
     if ( validateResponse != null )
-        returnError( "You already have a response", next ); // CHANGE ERROR CODE
+        returnError( "You already have a response", next, errorCode=403 );
 
     const response = new Response( {
         user: validateUser,
@@ -50,12 +49,11 @@ exports.otherResponse = async ( req, res, next ) => {
     const validateSurvey = await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
         .exec();
 
-    if ( validateUser == null || validateSurvey == null || 
-        Object.keys(validateUser).length == 0 ||  Object.keys(validateSurvey).length == 0 )
+    if ( validateUser == null || validateSurvey == null )
             returnError( 'Incorrect user id or survey name', next );
 
     if ( validateSurvey.doesAnswerExist( req.body.response ) )
-        returnError( 'Incorrect Alernative response format', next ); // CHANGE ERROR MESSAGE
+        returnError( 'Incorrect Alernative response format', next, errorCode=403 );
 
     const response = new Response( {
         user: validateUser,
@@ -66,7 +64,7 @@ exports.otherResponse = async ( req, res, next ) => {
     await response.save( function( error ){
         if (error) return next( error );
 
-        res.send( JSON.stringify( { status: "Response Successfully Saved!" } ) );
+        res.json( { response: "Response Successfully Saved!" } );
     } );
 };
 
@@ -93,6 +91,6 @@ exports.createNewSurvey = async ( req, res, next ) => {
         
         if( error ) return next( error );
         
-        res.send( JSON.stringify( { response: 'Survey was sucessfully added' } ) );
+        res.json( { response: 'Survey was sucessfully added' } );
     } );
 };

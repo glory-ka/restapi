@@ -13,8 +13,7 @@ exports.deleteUserResponse = async ( req, res, next ) => {
     const validateOwner = await UserInfo.findOne( { userUUID: req.body.ownerId } )
         .exec();
         
-    if ( validateUser == null || Object.keys( validateUser ).length == 0 ||
-                validateOwner == null || Object.keys( validateOwner ).length == 0 )
+    if ( validateUser == null || validateOwner == null )
         returnError( 'User or Owner not found', next )
 
 
@@ -22,8 +21,8 @@ exports.deleteUserResponse = async ( req, res, next ) => {
         /*.populate( 'ownerInfo' ) // Dont need to populate */
         .exec();
 
-    if ( validateSurvey == null || Object.keys( validateSurvey ).length == 0 )
-        returnError( 'Incorrect Survey Name or No response found', next );
+    if ( validateSurvey == null )
+        returnError( 'Survey not found', next );
 
 
     await Response.deleteOne( { survey: validateSurvey, user: validateUser } )
