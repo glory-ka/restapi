@@ -14,17 +14,17 @@ exports.respondToSurvey = async ( req, res, next ) => {
         .exec();
 
     if ( validateUser == null || validateSurvey == null )
-        returnError( 'Incorrect user id or survey name', next );
+        return returnError( 'Incorrect user id or survey name', next );
 
     if ( ! validateSurvey.doesAnswerExist( req.body.response ) )
         returnError( "Response doesn't exist", next );
-    
+
     // TODO: check that only one sruvey is returned
 
-    const validateResponse = await Response.findOne( { user: validateUser } ); 
+    const validateResponse = await Response.findOne( { user: validateUser } );
 
     if ( validateResponse != null )
-        returnError( "You already have a response", next, errorCode=403 );
+        return returnError( "You already have a response", next, errorCode=403 );
 
     const response = new Response( {
         user: validateUser,
@@ -69,10 +69,10 @@ exports.otherResponse = async ( req, res, next ) => {
 };
 
 exports.createNewSurvey = async ( req, res, next ) => {
-    
+
     const validateUser = await UserInfo.findOne( { userUUID: req.body.userId } ).exec();
-    
-    if ( validateUser == null || validateSurvey == null || 
+
+    if ( validateUser == null || validateSurvey == null ||
         Object.keys(validateUser).length == 0 ||  Object.keys(validateSurvey).length == 0 )
             returnError( 'Incorrect user id or survey name', next );
 
@@ -88,9 +88,9 @@ exports.createNewSurvey = async ( req, res, next ) => {
     } );
 
     newSurvey.save( ( error ) => {
-        
+
         if( error ) return next( error );
-        
+
         res.json( { response: 'Survey was sucessfully added' } );
     } );
 };

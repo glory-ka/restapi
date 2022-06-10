@@ -19,11 +19,12 @@ content-type: application/json
 }
 
 ###
-POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/otherResponse
+POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/otherResponse HTTP/1.1
 Content-Type: application/json
+
 {
-    'userId': 'kfj8392',
-    'response': 'Ethiopia'
+    "userId": "kfj8392",
+    "response": "Ethiopia"
 }
 
 ###
