@@ -13,13 +13,17 @@ GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/count HTTP/1.1
 POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/response
 Content-Type: application/json
 {
-    'userId': '',
+    'userId': '53ifnow',
     'response': 'Congo'
 }
 
 
 POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/otherResponse
-
+Content-Type: application/json
+{
+    'userId': '',
+    'response': 'Ethiopia'
+}
 
 
 POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/create
