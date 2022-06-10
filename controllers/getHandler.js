@@ -42,6 +42,7 @@ exports.listPublishedSurvey = async ( req, res, next ) => {
 exports.surveyDetail = async ( req, res, next ) => {
 
     await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
+        .populate( 'user' )
         .exec(
             function( error, survey ){
                 if ( error ) return next( error );
