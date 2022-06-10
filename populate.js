@@ -139,8 +139,10 @@ try {
     )
     .then( _ => mongoose.connection.close())
 
-} catch( error ) {
+    console.log("All data were succesfully sent to the database");
     
+} catch( error ) {
+
     console.log( 'Object creation failed: ', error );
 }
 
