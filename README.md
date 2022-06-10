@@ -5,11 +5,14 @@ Rest Api Assignment
 
 USAGE
 -----
-This is a typical Api which means the client can make request, post data, alter the data and delete data using GET, POST, PUT and DELETE methods, respectively.
+This is a typical Api which means the client can make requests, post data, alter data and delete data using the GET, POST, PUT and DELETE methods, respectively.
 The format of the data for PUT, POST and DELETE is given bellow.
 
-To get started, you need to run the populate.js file which is has the execute permission bit set on linux. This file contains initial information that would be fed to your database (MongoDB).
-Not all data would be necessary. You can decide to remove the initial Survey creation and response, however, the Api needs User data to work. I didn't use a true UUID to for user ( what I mean by true is the length of the string that a typical UUID application would generate. The UUIDs I have used are more akin to passwords, weak passwords).
+To get started, you need to run the populate.js file which is has the execute permission bit set on linux.
+This file contains some initial data that would be fed to your database (MongoDB).
+Not all data is necessary though. You can decide to remove the initial __Survey__ creation and __Response__, however, the Api needs __User__ data to work.
+I didn't use a true UUID to for user `userUUID` entry ( what I mean by true is the length of the string that a typical UUID application would generate.
+The UUIDs I have used are more akin to passwords, weak passwords).
 
 Do the Following to run populate.js:
 ```bash
@@ -17,7 +20,14 @@ command-prompt$ ./populate 'mongodb+srv://<username>:<password>@cluster0.9fhcb.m
 
 ```
 
-The second argument is the URL that points to your mongodb 
+The second argument is the URL that points to your mongodb database -> collection. You also want to keep that URL inside an enviroment variable called MONGODB_URL.
+
+Then run the server with the following code:
+```bash
+command_prompt$ MONGODB_URL='mongodb+srv://<username>:<password>@cluster0.9fhcb.mongodb.net/?retryWrites=true&w=majority'
+command-prompt$ MONGODB_URL=$MONGODB_URL npm run serverstart
+
+```
 
 GET
 ---
