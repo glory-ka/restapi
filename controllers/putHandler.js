@@ -9,7 +9,7 @@ exports.changeSurveyStatus = async ( req, res, next ) => {
     const ownerInfo = await UserInfo.findOne( { userUUID: req.body.ownerId } ).exec();
 
     if ( ownerInfo == null )
-        return returnError( 'User not found', next )
+        return res.status( 404 ).json( { response: 'User not found' } );
 
     await Survey.findOneAndUpdate( { surveyName: req.params.name, ownerInfo: ownerInfo }, { status: req.body.status } )
         .exec(
@@ -17,7 +17,7 @@ exports.changeSurveyStatus = async ( req, res, next ) => {
                 if ( error ) return next( error );
 
                 if ( survey == null )
-                    return returnError( 'Survey Not found', next );
+                    return res.status( 404 ).json( { response: 'Survey Not found' } );
 
                 else
                     res.json( { response: 'Survey Status Sucessfully Changed', surveyAffected: survey } );
@@ -31,7 +31,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
     const ownerInfo = await UserInfo.findOne( { userUUID: req.body.ownerId } ).exec();
 
     if ( ownerInfo == null )
-        returnError( 'User not found', next );
+        res.status( 404 ).json( { response: 'User not found' } );
 
     await Survey.findOne( { surveyName: req.params.name, ownerInfo: ownerInfo } )
         .exec(
@@ -40,7 +40,7 @@ exports.changeSurveyQuestion = async ( req, res, next ) => {
                 if ( error ) return next( error );
 
                 if ( survey == null )
-                    return returnError( 'Survey Not found', next );
+                    return res.status( 404 ).json( { response: 'Survey Not found' } );
 
                 if ( survey.status === "published" ) // res.json() alone doesn't stop the function execution
                     return res.json( { response: 'You can not change a published survey' } ); //CHECK REQUIREMENT
