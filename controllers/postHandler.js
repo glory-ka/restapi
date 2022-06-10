@@ -13,6 +13,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
     const validateSurvey = await Survey.findOne( { surveyName: req.params.name, status: 'published' } )
         .exec();
 
+    console.log( 'XXXXXXXXXXXX', validateUser, validateSurvey );
     if ( validateUser == null || validateSurvey == null )
         return returnError( 'Incorrect user id or survey name', next );
 
@@ -21,7 +22,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
 
     // TODO: check that only one sruvey is returned
 
-    const validateResponse = await Response.findOne( { user: validateUser } );
+    const validateResponse = await Response.findOne( { user: validateUser } ).exec();
 
     if ( validateResponse != null )
         return returnError( "You already have a response", next, errorCode=403 );
