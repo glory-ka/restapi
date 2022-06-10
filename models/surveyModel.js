@@ -35,7 +35,7 @@ surveyFormatSchema
     .get(
         function(){
           return {
-              owner: this.user.name,
+              owner: this.ownerInfo.name,
               date_open: this.date_open,
               date_close: this.date_close,
               status: this.status,
