@@ -10,7 +10,7 @@ GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/detail HTTP/1.1
 GET http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/count HTTP/1.1
 
 ###
-POST http://0.0.0.0:3000/orangutan/survey/Geogrsurvey/response HTTP/1.1
+POST http://0.0.0.0:3000/orangutan/survey/GeogrSurvey/response HTTP/1.1
 content-type: application/json
 
 {
