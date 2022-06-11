@@ -6,3 +6,33 @@ body {
 a {
   color: #00B7FF;
 }
+
+.apiURL {
+  margin: 0 auto; 
+  width: 60%; 
+  /*border: 2px solid red;*/
+  padding: 20px;
+}
+
+.header {
+  width: 50%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.apiURL > div 
+{
+  padding: 25px 0 25px 20px;
+}
+
+.apiURL > div:nth-child( 2n )
+{
+  background-color: #F8F9F9;
+}
+
+.apiURL > div:nth-child( 2n + 1 )
+{
+  background-color: #F2F4F4;
+}
