@@ -1,4 +1,5 @@
 // CREATE SURVEY
+/*
 const response = await fetch('http://10.12.108.1:3000/orangutan/survey/SimonServey/create', {
     method: 'POST',
     mode: 'cors', 
@@ -22,8 +23,9 @@ const response = await fetch('http://10.12.108.1:3000/orangutan/survey/SimonServ
 		}
 	})
   });
-  
+*/
 // RESPOND TO SURVEY
+/*
 const response = await fetch('http://10.0.0.17:3000/orangutan/survey/JirayaServey/response', {
     method: 'POST',
     mode: 'cors', 
@@ -39,8 +41,9 @@ const response = await fetch('http://10.0.0.17:3000/orangutan/survey/JirayaServe
 		response: 'answer1',
 	})
   });
-
+*/
 // OTHER RESPONSE TO SURVEY
+/*
 const response = await fetch('http://10.12.108.1:3000/orangutan/survey/JirayaServey/otherResponse', {
     method: 'POST',
     mode: 'cors', 
@@ -56,8 +59,9 @@ const response = await fetch('http://10.12.108.1:3000/orangutan/survey/JirayaSer
 		response: 'good',
 	})
   });
-  
+*/
 // CHANGE SERVERY QUESTION
+/*
 const response = await fetch('http://10.12.108.1:3000/orangutan/survey/GlodiServey/updateQuestion', {
     method: 'PUT',
     mode: 'cors', 
@@ -73,8 +77,9 @@ const response = await fetch('http://10.12.108.1:3000/orangutan/survey/GlodiServ
 		question: 'This is a new question'
 	})
   });
-  
+*/
 // CHANGE SERVEY STATUS
+/*
 const response = await fetch('http://10.12.108.1:3000/orangutan/survey/ErwinServey/updateStatus', {
     method: 'PUT',
     mode: 'cors', 
@@ -90,8 +95,9 @@ const response = await fetch('http://10.12.108.1:3000/orangutan/survey/ErwinServ
 		status: 'published'
 	})
   });
-  
+*/
 // DELETE USER RESPONSE
+/*
 const response = await fetch('http://10.0.0.17:3000/orangutan/survey/JirayaServey/delete', {
     method: 'DELETE',
     mode: 'cors', 
@@ -108,8 +114,9 @@ const response = await fetch('http://10.0.0.17:3000/orangutan/survey/JirayaServe
 		lastname: 'Luther'
 	})
   });
-  
+*/
 // DELETE USER SURVEY
+/*
 const response = await fetch('http://10.0.0.17:3000/orangutan/survey/JirayaServey/deleteSurvey', {
     method: 'DELETE',
     mode: 'cors', 
@@ -124,3 +131,4 @@ const response = await fetch('http://10.0.0.17:3000/orangutan/survey/JirayaServe
 		ownerId: '3455dds'
 	})
   });
+  */
