@@ -6,7 +6,7 @@ const {
     respondToSurvey, 
     otherResponse,
     deleteUserResponse  
-} = require( "../controllers/response" )
+} = require( "../controllers/responseController" )
 
 
 /** GET ROUTER */
@@ -19,7 +19,7 @@ router.post('/:name/:userId/otherResponse', otherResponse);
 
 
 /** DELETE ROUTER */
-router.delete('/:name/:ownerId/response', deleteUserResponse);
+router.delete('/:name/:ownerId/delete', deleteUserResponse);
 
 
 module.exports =  router;

@@ -8,7 +8,7 @@ const {
         changeSurveyStatus,
         changeSurveyQuestion,
         deleteSurvey 
-    } = require( "../controllers/survey" )
+    } = require( "../controllers/surveyController" )
 
 
 
@@ -24,11 +24,11 @@ router.post( '/:name/:userId/create', createNewSurvey )
 
 
 /** DELETE ROUTER */
-router.delete('/:name/:ownerId/survey', deleteSurvey);
+router.delete('/:name/:ownerId/delete', deleteSurvey);
 
 /** PUT ROUTER */
 router.put('/:name/:ownerId/status', changeSurveyStatus);
-router.put('/:name/question', changeSurveyQuestion);
+router.put('/:name/:ownerId/question', changeSurveyQuestion);
 
 
 module.exports =  router;
