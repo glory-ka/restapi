@@ -20,6 +20,12 @@ app.use( express.static( path.join( __dirname, 'public' ) ) );
 
 app.use( '/orangutan/survey', serverRouter );
 
+// Redirect all traffic that is not /orangutan/survey to home page
+app.all( /^(?!\/orangutan\/survey)/, ( req, res, next ) => {
+    res.redirect('/');
+} );
+
+
 app.use(function(req, res, next) {
     next(createError(404));
   });
