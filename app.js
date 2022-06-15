@@ -7,7 +7,8 @@ var createError = require( 'http-errors' );
 var mongoose = require( 'mongoose' );
 
 
-var serverRouter = require( './routes/survey.js' );
+var surveyRouter = require( './routes/survey' );
+var resonseRouter = require( './routes/response' )
 
 var app = express();
 
@@ -18,10 +19,11 @@ app.use( cookieParser() );
 app.use( express.static( path.join( __dirname, 'public' ) ) );
 
 
-app.use( '/orangutan/survey', serverRouter );
+app.use( '/orangutan/survey', surveyRouter );
+app.use( '/orangutan/response' , resonseRouter )
 
 // Redirect all traffic that is not /orangutan/survey to home page
-app.all( /^(?!\/orangutan\/survey)/, ( req, res, next ) => {
+app.all( /^(?!\/orangutan\/(survey|response))/, ( req, res, next ) => {
     res.redirect('/');
 } );
 

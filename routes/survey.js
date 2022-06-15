@@ -1,31 +1,34 @@
 const express = require('express');
 const router = express.Router();
 
-const { listPublishedSurvey, listAllOpenSurvey, surveyDetail, surveyResponseCount } = require('../controllers/getHandler');
-const { respondToSurvey, otherResponse, createNewSurvey } = require( '../controllers/postHandler');
-const { deleteUserResponse, deleteSurvey } = require( '../controllers/deleteHandler');
-const { changeSurveyStatus, changeSurveyQuestion } = require('../controllers/putHandler');
+const { 
+        listPublishedSurvey, 
+        surveyDetail,
+        createNewSurvey,
+        changeSurveyStatus,
+        changeSurveyQuestion,
+        deleteSurvey 
+    } = require( "../controllers/survey" )
+
+
 
 
 /** GET ROUTER */
 router.get('/published', listPublishedSurvey);
 router.get('/:name/detail', surveyDetail);
-router.get('/:name/count', surveyResponseCount)
+
 
 
 /** POST ROUTER */
-router.post('/:name/response', respondToSurvey);
-router.post('/:name/otherResponse', otherResponse);
-router.post( '/:name/create', createNewSurvey )
+router.post( '/:name/:userId/create', createNewSurvey )
 
 
 /** DELETE ROUTER */
-router.delete('/:name/delete', deleteUserResponse);
-router.delete('/:name/deleteSurvey', deleteSurvey);
+router.delete('/:name/:ownerId/survey', deleteSurvey);
 
 /** PUT ROUTER */
-router.put('/:name/updateStatus', changeSurveyStatus);
-router.put('/:name/updateQuestion', changeSurveyQuestion);
+router.put('/:name/:ownerId/status', changeSurveyStatus);
+router.put('/:name/question', changeSurveyQuestion);
 
 
 module.exports =  router;
