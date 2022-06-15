@@ -59,9 +59,13 @@ exports.surveyDetail = async ( req, res, next ) => {
 // POST CREATE NEW SURVEY
 exports.createNewSurvey = async ( req, res, next ) => {
 
-    const validateUser = await UserInfo.findOne( { userUUID: req.params.userId } ).exec();
 
-    if ( validateUser == null )
+    const [ validateUser, validateSurvey ] = await Promise.all([
+        UserInfo.findOne( { userUUID: req.params.userId } ).exec(),
+        Survey.findOne( { surveyName: req.params.name } ).exec()
+    ]);
+
+    if ( validateUser == null || validateSurvey != null )
         return res.status( 404 ).json( { response: "Incorrect user id or survey name" } );
 
     const newSurvey = new Survey( {
@@ -78,7 +82,7 @@ exports.createNewSurvey = async ( req, res, next ) => {
     newSurvey.save( ( error ) => {
 
         if( error ) return next( error );
-
+        console.log( req.params );
         res.json( { response: "Survey was sucessfully added" } );
     } );
 };

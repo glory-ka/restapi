@@ -31,7 +31,7 @@ exports.surveyResponseCount = async ( req, res, next ) => {
 // POST SURVEY QUESTION
 exports.respondToSurvey = async ( req, res, next ) => {
 
-    const [ validateUser, validateSurvey ] = Promise.all([
+    const [ validateUser, validateSurvey ] = await Promise.all([
          UserInfo.findOne( { userUUID: req.params.userId } ).exec(),
          Survey.findOne( { surveyName: req.params.name, status: 'published' } ).exec()
     ]);
@@ -67,7 +67,7 @@ exports.respondToSurvey = async ( req, res, next ) => {
 // POST OTHER SURVEY QUESTION
 exports.otherResponse = async ( req, res, next ) => {
 
-    const [ validateUser, validateSurvey ] = Promise.all([
+    const [ validateUser, validateSurvey ] = await Promise.all([
         UserInfo.findOne( { userUUID: req.params.userId } ).exec(),
         Survey.findOne( { surveyName: req.params.name, status: 'published' } ).exec()
    ]);
@@ -101,7 +101,7 @@ exports.otherResponse = async ( req, res, next ) => {
 // DELETE RESPONSE
 exports.deleteUserResponse = async ( req, res, next ) => {
 
-    const [ validateOwner, validateUser ] = Promise.all([
+    const [ validateOwner, validateUser ] = await Promise.all([
         UserInfo.findOne( { userUUID: req.params.ownerId } ).exec(),
         UserInfo.findOne( { firstName: req.query.firstname, lastName: req.query.lastname } ) .exec()
     ]);
