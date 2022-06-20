@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
+    "clear": "node start.js",
+    "clearStart": "DEBUG=restapi:* npm run clear",
     "serverstart": "DEBUG=restapi:* npm run devstart"
   },
   "dependencies": {
